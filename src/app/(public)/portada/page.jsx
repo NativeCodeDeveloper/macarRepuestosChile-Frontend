@@ -53,7 +53,7 @@ export default function Portada() {
                     priority            // se carga primero (LCP)
                     placeholder="blur"  // blur mientras carga
                     quality={100}        // baja un poco la calidad para más velocidad
-                    sizes="100vw"       // Next genera tamaños responsivos
+                    sizes="65vw"       // Next genera tamaños responsivos
                     style={{ objectFit: 'cover', objectPosition: 'center' }}
                     className="opacity-90"
                 />
