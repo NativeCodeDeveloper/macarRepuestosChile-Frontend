@@ -28,52 +28,133 @@ export default function NavbarDashboard() {
         @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
       `}</style>
       <AppBar position="sticky" color="inherit" elevation={0} sx={{
-        bgcolor: 'transparent',
-        color: '#0A2540',
-        borderBottom: '1px solid',
-        borderColor: 'divider',
-        backgroundImage: 'linear-gradient(135deg, #DCEBFF 0%, #E8F0FE 40%, #F2F7FF 100%)',
-        boxShadow: '0 8px 24px rgba(10, 37, 64, 0.08)',
-        backdropFilter: 'saturate(1.2) blur(4px)'
+        bgcolor: 'rgba(255, 255, 255, 0.95)',
+        color: '#0F172A',
+        borderBottom: '1px solid rgba(148, 163, 184, 0.15)',
+        backgroundImage: 'linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 245, 249, 0.95) 100%)',
+        boxShadow: '0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(59, 130, 246, 0.06)',
+        backdropFilter: 'blur(12px) saturate(1.5)',
+        transition: 'all 0.3s ease-in-out'
       }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ gap: 2 }}>
           {/* Branding / Título */}
-          <Typography
-            variant="h6"
-            component={Link}
-            href="/dashboard"
-            style={{ textDecoration: 'none', color: 'inherit' }}
-            sx={{ fontFamily: 'Michroma, sans-serif', fontWeight: 800, letterSpacing: '.12rem', color: '#0A2540' }}
-          >
-         MaCar Repuestos
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+            <Box sx={{
+              width: 8,
+              height: 8,
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
+              boxShadow: '0 0 12px rgba(59, 130, 246, 0.4)'
+            }} />
+            <Typography
+              variant="h6"
+              component={Link}
+              href="/dashboard"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+              sx={{
+                fontFamily: 'Michroma, sans-serif',
+                fontWeight: 700,
+                letterSpacing: '.08rem',
+                color: '#0F172A',
+                fontSize: '1.1rem',
+                background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #334155 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }
+              }}
+            >
+              MaCar Repuestos
+            </Typography>
+          </Box>
 
           {/* Empuja el bloque de navegación a la derecha */}
           <Box sx={{ flexGrow: 1 }} />
 
           {/* Navegación Desktop */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5 }}>
 
               <Button
                   component={Link}
                   href="/dashboard/pedidosCompras"
                   color="inherit"
                   disableRipple
-                  sx={{ fontFamily: 'Michroma, sans-serif', textTransform: 'none', fontWeight: 600, borderRadius: '12px', px: 2.5, color: '#0A2540', border: '1px solid transparent', '&:hover': { bgcolor: 'action.hover', borderColor: 'divider' } }}
+                  sx={{
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    fontSize: '0.9rem',
+                    borderRadius: '10px',
+                    px: 3,
+                    py: 1,
+                    color: '#475569',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: 0,
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: 0,
+                      height: '2px',
+                      background: 'linear-gradient(90deg, #3B82F6, #2563EB)',
+                      transition: 'width 0.3s ease'
+                    },
+                    '&:hover': {
+                      bgcolor: 'rgba(59, 130, 246, 0.08)',
+                      color: '#3B82F6',
+                      '&::before': {
+                        width: '80%'
+                      }
+                    }
+                  }}
               >
                   Pedidos
               </Button>
 
-
-
             <Button
               component={Link}
-
               href="/dashboard/ingresoProductos"
               color="inherit"
               disableRipple
-              sx={{ fontFamily: 'Michroma, sans-serif', textTransform: 'none', fontWeight: 600, borderRadius: '12px', px: 2.5, color: '#0A2540', border: '1px solid transparent', '&:hover': { bgcolor: 'action.hover', borderColor: 'divider' } }}
+              sx={{
+                fontFamily: 'Inter, system-ui, sans-serif',
+                textTransform: 'none',
+                fontWeight: 500,
+                fontSize: '0.9rem',
+                borderRadius: '10px',
+                px: 3,
+                py: 1,
+                color: '#475569',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: 0,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: 0,
+                  height: '2px',
+                  background: 'linear-gradient(90deg, #3B82F6, #2563EB)',
+                  transition: 'width 0.3s ease'
+                },
+                '&:hover': {
+                  bgcolor: 'rgba(59, 130, 246, 0.08)',
+                  color: '#3B82F6',
+                  '&::before': {
+                    width: '80%'
+                  }
+                }
+              }}
             >
               Productos
             </Button>
@@ -83,22 +164,79 @@ export default function NavbarDashboard() {
               href="/dashboard/gestionStock"
               color="inherit"
               disableRipple
-              sx={{ fontFamily: 'Michroma, sans-serif', textTransform: 'none', fontWeight: 600, borderRadius: '12px', px: 2.5, color: '#0A2540', border: '1px solid transparent', '&:hover': { bgcolor: 'action.hover', borderColor: 'divider' } }}
+              sx={{
+                fontFamily: 'Inter, system-ui, sans-serif',
+                textTransform: 'none',
+                fontWeight: 500,
+                fontSize: '0.9rem',
+                borderRadius: '10px',
+                px: 3,
+                py: 1,
+                color: '#475569',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: 0,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: 0,
+                  height: '2px',
+                  background: 'linear-gradient(90deg, #3B82F6, #2563EB)',
+                  transition: 'width 0.3s ease'
+                },
+                '&:hover': {
+                  bgcolor: 'rgba(59, 130, 246, 0.08)',
+                  color: '#3B82F6',
+                  '&::before': {
+                    width: '80%'
+                  }
+                }
+              }}
             >
               Inventario
             </Button>
-
-
-
 
               <Button
                   component={Link}
                   href="/dashboard/categoriasProductos"
                   color="inherit"
                   disableRipple
-                  sx={{ fontFamily: 'Michroma, sans-serif', textTransform: 'none', fontWeight: 600, borderRadius: '12px', px: 2.5, color: '#0A2540', border: '1px solid transparent', '&:hover': { bgcolor: 'action.hover', borderColor: 'divider' } }}
+                  sx={{
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    textTransform: 'none',
+                    fontWeight: 500,
+                    fontSize: '0.9rem',
+                    borderRadius: '10px',
+                    px: 3,
+                    py: 1,
+                    color: '#475569',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: 0,
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: 0,
+                      height: '2px',
+                      background: 'linear-gradient(90deg, #3B82F6, #2563EB)',
+                      transition: 'width 0.3s ease'
+                    },
+                    '&:hover': {
+                      bgcolor: 'rgba(59, 130, 246, 0.08)',
+                      color: '#3B82F6',
+                      '&::before': {
+                        width: '80%'
+                      }
+                    }
+                  }}
               >
-                  Categorias
+                  Categorías
               </Button>
 
             <Button
@@ -106,7 +244,37 @@ export default function NavbarDashboard() {
               href="/dashboard/publicaciones"
               color="inherit"
               disableRipple
-              sx={{ fontFamily: 'Michroma, sans-serif', textTransform: 'none', fontWeight: 600, borderRadius: '12px', px: 2.5, color: '#0A2540', border: '1px solid transparent', '&:hover': { bgcolor: 'action.hover', borderColor: 'divider' } }}
+              sx={{
+                fontFamily: 'Inter, system-ui, sans-serif',
+                textTransform: 'none',
+                fontWeight: 500,
+                fontSize: '0.9rem',
+                borderRadius: '10px',
+                px: 3,
+                py: 1,
+                color: '#475569',
+                position: 'relative',
+                overflow: 'hidden',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: 0,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: 0,
+                  height: '2px',
+                  background: 'linear-gradient(90deg, #3B82F6, #2563EB)',
+                  transition: 'width 0.3s ease'
+                },
+                '&:hover': {
+                  bgcolor: 'rgba(59, 130, 246, 0.08)',
+                  color: '#3B82F6',
+                  '&::before': {
+                    width: '80%'
+                  }
+                }
+              }}
             >
               Publicaciones
             </Button>
@@ -122,7 +290,18 @@ export default function NavbarDashboard() {
               aria-expanded={Boolean(anchorElNav) ? 'true' : undefined}
               onClick={handleOpenNavMenu}
               color="inherit"
-              sx={{ fontFamily: 'Michroma, sans-serif' }}
+              sx={{
+                fontFamily: 'Inter, system-ui, sans-serif',
+                fontWeight: 500,
+                fontSize: '0.9rem',
+                color: '#475569',
+                px: 2,
+                borderRadius: '10px',
+                '&:hover': {
+                  bgcolor: 'rgba(59, 130, 246, 0.08)',
+                  color: '#3B82F6'
+                }
+              }}
             >
               Menú
             </Button>
@@ -134,33 +313,107 @@ export default function NavbarDashboard() {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               keepMounted
+              sx={{
+                '& .MuiPaper-root': {
+                  borderRadius: '12px',
+                  mt: 1,
+                  boxShadow: '0 4px 24px rgba(15, 23, 42, 0.1), 0 8px 48px rgba(59, 130, 246, 0.08)',
+                  border: '1px solid rgba(148, 163, 184, 0.15)',
+                  backdropFilter: 'blur(12px)',
+                  bgcolor: 'rgba(255, 255, 255, 0.98)'
+                }
+              }}
             >
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link href="/dashboard/categoriasProductos" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
-                  Categorías
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                sx={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '0.9rem',
+                  py: 1.5,
+                  px: 3,
+                  color: '#475569',
+                  '&:hover': {
+                    bgcolor: 'rgba(59, 130, 246, 0.08)',
+                    color: '#3B82F6'
+                  }
+                }}
+              >
+                <Link href="/dashboard/pedidosCompras" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
+                  Pedidos
                 </Link>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link href="/dashboard/publicaciones" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
-                  Publicaciones
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                sx={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '0.9rem',
+                  py: 1.5,
+                  px: 3,
+                  color: '#475569',
+                  '&:hover': {
+                    bgcolor: 'rgba(59, 130, 246, 0.08)',
+                    color: '#3B82F6'
+                  }
+                }}
+              >
                 <Link href="/dashboard/ingresoProductos" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
                   Productos
                 </Link>
               </MenuItem>
-              <MenuItem onClick={handleCloseNavMenu}>
-                <Link href="/dashboard/edicionPagina" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
-                  Edición Web
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                sx={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '0.9rem',
+                  py: 1.5,
+                  px: 3,
+                  color: '#475569',
+                  '&:hover': {
+                    bgcolor: 'rgba(59, 130, 246, 0.08)',
+                    color: '#3B82F6'
+                  }
+                }}
+              >
+                <Link href="/dashboard/gestionStock" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
+                  Inventario
                 </Link>
               </MenuItem>
-
-                <MenuItem onClick={handleCloseNavMenu}>
-                    <Link href="/dashboard/gestionStock" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
-                        Inventario
-                    </Link>
-                </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                sx={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '0.9rem',
+                  py: 1.5,
+                  px: 3,
+                  color: '#475569',
+                  '&:hover': {
+                    bgcolor: 'rgba(59, 130, 246, 0.08)',
+                    color: '#3B82F6'
+                  }
+                }}
+              >
+                <Link href="/dashboard/categoriasProductos" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
+                  Categorías
+                </Link>
+              </MenuItem>
+              <MenuItem
+                onClick={handleCloseNavMenu}
+                sx={{
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                  fontSize: '0.9rem',
+                  py: 1.5,
+                  px: 3,
+                  color: '#475569',
+                  '&:hover': {
+                    bgcolor: 'rgba(59, 130, 246, 0.08)',
+                    color: '#3B82F6'
+                  }
+                }}
+              >
+                <Link href="/dashboard/publicaciones" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
+                  Publicaciones
+                </Link>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

@@ -9,6 +9,12 @@ import Image from "next/image";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import maxusBg from "../../../../public/maxus2.webp";
 import Link from "next/link";
+import {Outfit} from "next/font/google";
+
+const outfit = Outfit({
+    subsets:["latin"],
+    weight:["900"]
+});
 
 export default function Portada() {
 
@@ -277,26 +283,26 @@ export default function Portada() {
                             className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto md:hidden -mt-100 ml-6"
                         >
 
+                        <div className={"justify-content-start"}>
+                            <h1 className={outfit.className}>Repuestos para Maxus Originales</h1>
+                        </div>
 
 
-                            <Link href={"/catalogo"}>
-                                <Button size="lg" className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-50">
-                                    Ver Catálogo <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                                </Button>
-                            </Link>
+<div className="w-full gap-3">
+
+    <Link href={"/catalogo"}>
+        <Button size="lg" className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-50">
+            Ver Catálogo <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
+        </Button>
+    </Link>
 
 
-<Link href={"/formularioContacto"} >
 
-    <Button
+</div>
 
-        size="lg" variant="outline" className="gap-2 border-2 border-blue-300 hover:border-blue-500 hover:bg-blue-50 text-blue-900 transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-50">
-        <EnvelopeIcon className="w-5 h-5" />Contáctanos
-    </Button>
-</Link>
 
                             <Image
-                                className="relative rounded-xl block  md:hidden ml-25 -mt-10 "
+                                className="relative rounded-xl block  md:hidden ml-30 -mt-9 "
                                 src={"/logoMaxusBlack.png"}
                                 alt={"Macar Repuestos"}
                                 height={150}

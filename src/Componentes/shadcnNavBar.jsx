@@ -12,51 +12,13 @@ import {
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import {useEffect, useState} from 'react';
 import {useCarritoGlobal} from "@/ContextosGlobales/CarritoContext";
-
-// ========== ARRAY DE CATEGORÍAS DE REPUESTOS ==========
-// Puedes agregar/editar categorías aquí
-
-
-
-
-
 
 export function ShadcnNavBar() {
 
     const [carrito, _setCarrito] = useCarritoGlobal();
     const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
-    const [listaCategorias, setListaCategorias] = useState([]);
-    const API = process.env.NEXT_PUBLIC_API_URL;
 
-// FUNCION PARA SELECCIONAR LA LISTA COMPLETA DE CATEGORIAS DE PRODUCTOS
-    async function seleccionarCategorias() {
-        try {
-            const res = await fetch(`${API}/categorias/seleccionarCategoria`, {
-                method: "GET",
-                headers: {Accept: "application/json"},
-                cache: "no-store",
-            })
-            if(!res.ok) {
-                console.error('No fue posible cargar la lista de categorias');
-                return [];
-            }
-            const dataCategorias = await res.json();
-            const listaCategorias = Array.isArray(dataCategorias) ? dataCategorias : [];
-            setListaCategorias(listaCategorias);
-            return listaCategorias;
-
-        } catch (error) {
-            console.error(error);
-            setCategorias([]);
-            return [];
-        }
-    }
-
-    useEffect(() => {
-        seleccionarCategorias();
-    }, []);
 
 
     const carritoGlobalCanitidad = carrito.length || 0;
@@ -132,33 +94,19 @@ export function ShadcnNavBar() {
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
-                {/* ========== MENÚ DE CATEGORÍAS ========== */}
+                {/* ========== MENÚ DE SERVICIOS ========== */}
                 <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-gray-200 hover:text-white hover:bg-gray-800/50 text-base font-semibold px-4 py-2">
-                        Categorías
+                        Servicios
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                        <ul className="grid gap-3 p-4 sm:w-[500px] md:w-[600px] lg:w-[700px] md:grid-cols-2">
-                            {listaCategorias.map((categoria) => (
-                                <li key={categoria.id_categoriaProducto}>
-                                    <NavigationMenuLink asChild>
-                                        <Link
-                                            href={"/"}
-                                            className="group block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 hover:shadow-md border border-transparent hover:border-blue-200"
-                                        >
-                                            <div className="flex items-center gap-3">
-                                                <span className="text-2xl group-hover:scale-110 transition-transform">{categoria.icon}</span>
-                                                <div className="flex-1">
-                                                    <div className="text-sm font-semibold leading-none text-gray-900 group-hover:text-blue-700">
-                                                        {categoria.descripcionCategoria}
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    </NavigationMenuLink>
-                                </li>
-                            ))}
+                        <ul className="grid gap-3 p-4 md:w-[450px] lg:w-[550px]">
+                            <ListItem href="/catalogo" title="🔍 Búsqueda de Repuestos">
+                                Encuentra el repuesto exacto que necesitas para tu vehículo Maxus.
+                            </ListItem>
+                            <ListItem href="/formularioContacto" title="💬 Asesoría Técnica">
+                                Nuestros expertos te ayudan a elegir el repuesto correcto.
+                            </ListItem>
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -249,26 +197,58 @@ export function ShadcnNavBar() {
                             📦 Catálogo Completo
                         </Link>
 
-                        {/* Categorías */}
+                        {/* Servicios */}
                         <div className="px-4 py-2">
-                            <p className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Categorías</p>
+                            <p className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-2">Nuestros Servicios</p>
                             <div className="flex flex-col gap-2">
-                                {listaCategorias.map((categoria) => (
-                                    <Link
-                                        key={categoria.id_categoriaProducto}
-                                        href={"/"}
-                                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        <span className="text-xl group-hover:scale-110 transition-transform">{categoria.icon}</span>
-                                        <div className="flex-1">
-                                            <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
-                                                {categoria.descripcionCategoria}
-                                            </p>
-
-                                        </div>
-                                    </Link>
-                                ))}
+                                <Link
+                                    href="/catalogo"
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <span className="text-xl group-hover:scale-110 transition-transform">🔍</span>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
+                                            Búsqueda de Repuestos
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link
+                                    href="/formularioContacto"
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <span className="text-xl group-hover:scale-110 transition-transform">💬</span>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
+                                            Asesoría Técnica
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link
+                                    href="/formularioContacto"
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <span className="text-xl group-hover:scale-110 transition-transform">🚚</span>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
+                                            Envíos a Todo Chile
+                                        </p>
+                                    </div>
+                                </Link>
+                                <Link
+                                    href="/formularioContacto"
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    <span className="text-xl group-hover:scale-110 transition-transform">✅</span>
+                                    <div className="flex-1">
+                                        <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
+                                            Garantía de Calidad
+                                        </p>
+                                    </div>
+                                </Link>
                             </div>
                         </div>
 

@@ -47,7 +47,12 @@ export default function Dashboard() {
 
 
 
-  //FUNCION PARA BUSCAR POR SIMILITUDES DE NOMBRE DE TITULO DE PRODUCTOS
+
+
+
+
+
+    //FUNCION PARA BUSCAR POR SIMILITUDES DE NOMBRE DE TITULO DE PRODUCTOS
     async function buscarSimilar(tituloSimilar) {
         let tituloProducto = tituloSimilar;
 
@@ -961,7 +966,6 @@ async function marcarOfertaProductos(id_producto) {
                           <TableHead className="text-center bg-gradient-to-r bg-sky-100 uppercase font-bold tracking-wide ">Imagen Referencia</TableHead>
                           <TableHead className="text-center bg-gradient-to-r bg-sky-100 uppercase font-bold tracking-wide">Titulo</TableHead>
                           <TableHead className="text-center bg-gradient-to-r bg-sky-100 uppercase font-bold tracking-wide">Valor</TableHead>
-                          <TableHead className="text-center bg-gradient-to-r bg-sky-100 uppercase font-bold tracking-wide">Categoria</TableHead>
                           <TableHead className="text-center bg-gradient-to-r bg-sky-100 uppercase font-bold tracking-wide"> </TableHead>
                           <TableHead className="text-center bg-gradient-to-r bg-sky-100 uppercase font-bold tracking-wide"> </TableHead>
                       </TableRow>
@@ -976,7 +980,6 @@ async function marcarOfertaProductos(id_producto) {
                               <TableCell className="text-center font-bold">{producto.tituloProducto}</TableCell>
                               <TableCell className="text-center font-bold text-green-600">$ {producto.valorProducto}</TableCell>
 
-                              <TableCell className="text-center">{producto.categoriaProducto}</TableCell>
 
                               <TableCell className="text-center">
                                   <ShadcnButton className="bg-red-600" variant={"bg-red"} nombre={"Eliminar"} funcion={()=> eliminarProducto(producto.id_producto)}/>

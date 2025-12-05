@@ -2,7 +2,6 @@
 
 import {useState, useEffect, Suspense} from 'react';
 import Link from "next/link";
-import{useSearchParams} from "next/navigation";
 import { toast } from 'react-hot-toast';
 import {useCarritoGlobal} from "@/ContextosGlobales/CarritoContext";
 import { ShoppingCartIcon } from '@heroicons/react/24/solid';
@@ -22,7 +21,17 @@ import {ShadcnInput} from "@/Componentes/shadcnInput";
 import {ShadcnButton} from "@/Componentes/shadcnButton";
 
 
+import {useSearchParams} from "next/navigation"
+
+
 export default function Catalogo({ searchParams }) {
+
+    const search = useSearchParams();
+    const id_categoriaProducto = search.get("id_categoriaProducto");
+
+
+
+
   // Crear una key única basada en los parámetros para forzar re-render
   const key = JSON.stringify(searchParams);
 
@@ -400,7 +409,27 @@ function CatalogoInner() {
 
 
                         {/* DIV CONTROLES DE ORDENAMIENTO: Contenedor alineado a la derecha con el selector de orden de productos */}
-                        <div className="ml-auto flex items-center gap-2">
+                        <div className="ml-auto flex flex-col gap-2">
+
+
+
+                            <Select onValueChange={(value) => filtrarPorCategoria(value)}>
+                                <SelectTrigger className="w-60 md:w-80 ">
+                                    <SelectValue  placeholder="Busca por Categoria" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {listaCategorias.map(categoria => (
+
+                                        <SelectItem key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>{categoria.descripcionCategoria}</SelectItem>
+                                    ))}
+
+                                </SelectContent>
+                            </Select>
+
+
+
+
+
 
 
                             <Select onValueChange={(value) =>{
@@ -414,7 +443,7 @@ function CatalogoInner() {
                                     listarProductos()
                                 }
                             }}>
-                                <SelectTrigger className="w-80">
+                                <SelectTrigger className="w-60 md:w-80 ">
                                     <SelectValue  placeholder="Ordenar por" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -575,33 +604,36 @@ function CatalogoInner() {
 
                     <section className="
                     grid
-                    grid-cols-1
+                    grid-cols-2
                     sm:grid-cols-2
                     md:grid-cols-3
                     lg:grid-cols-4
                     gap-6
+                    h-full
 
 
                     col-span-4
                     ">
 
                         {listaProductos.map((producto, index) => (
-                            <div key={producto.id_producto}  className="">
-                                <div className=" rounded-4 hover:shadow-md transition-all transform hover:-translate-y-1">
-                                    <div  className="relative  overflow-hidden flex flex-col items-center p-4 ">
+                            <div key={producto.id_producto}  className="h-full flex flex-col">
+                                <div className=" rounded-4 hover:shadow-2xl transition-all transform hover:-translate-y-1 flex flex-col h-full">
+                                    <div  className="relative  overflow-hidden flex flex-col items-center p-4 flex-grow ">
 
                                         <div className="aspect-square" onClick={()=> verProducto(producto.id_producto)}>
-                                            <MediaCardImage imagenProducto={producto.imagenProducto} tituloProducto={producto.tituloProducto} />
+                                            <MediaCardImage
+                                                imagenProducto={producto.imagenProducto}
+                                                tituloProducto={producto.tituloProducto} />
                                         </div>
 
-                                        <div className="flex flex-col justify-center gap-2 mt-5">
-                                            <p className="text-center font-bold">{producto.tituloProducto}</p>
-                                            <p className="text-center text-sky-700 font-bold">${producto.valorProducto}</p>
+                                        <div className="w-full flex flex-col justify-center gap-2 mt-5 flex-grow">
+                                            <p className="text-xs md:text-sm text-center font-bold">{producto.tituloProducto}</p>
+                                            <p className="text-xs md:text-base  text-center text-sky-700 font-bold">${producto.valorProducto}</p>
                                         </div>
 
-                                        <div className="flex justify-center gap-2">
-                                            <button className="border p-2 rounded bg-sky-950 text-white hover:bg-blue-600"><ShoppingCartIcon className="h-6 w-6 " onClick={()=> agregarAlCarrito(producto)}/></button>
-                                            <button className=" border p-2 rounded bg-sky-950 text-white font-bold hover:bg-blue-600" onClick={()=> comprarAhora(producto)}>Comprar</button>
+                                        <div className="flex justify-center gap-2 mt-auto">
+                                            <button className="border p-2 rounded bg-sky-950 text-white hover:bg-blue-600 text-xs md:text-sm  "><ShoppingCartIcon className="h-6 w-6 " onClick={()=> agregarAlCarrito(producto)}/></button>
+                                            <button className=" border p-2 rounded bg-sky-950 text-white font-bold hover:bg-blue-600 hidden md:block" onClick={()=> comprarAhora(producto)}>Comprar</button>
                                         </div>
                                     </div>
                                 </div>
