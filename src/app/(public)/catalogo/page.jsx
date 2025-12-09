@@ -608,22 +608,48 @@ function CatalogoInner() {
                         {listaProductos.map((producto, index) => (
                             <div key={producto.id_producto}  className="h-full flex flex-col">
                                 <div className=" rounded-4 hover:shadow-2xl transition-all transform hover:-translate-y-1 flex flex-col h-auto">
-                                    <div  className="relative  overflow-hidden flex flex-col items-center p-4 flex-grow ">
+                                    <div className="group relative overflow-hidden flex flex-col items-center p-1.5 md:p-3 flex-grow bg-gradient-to-br from-white to-slate-50 rounded-xl border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300">
 
-                                        <div className="aspect-square" onClick={()=> verProducto(producto.id_producto)}>
-                                            <MediaCardImage
-                                                imagenProducto={producto.imagenProducto}
-                                                tituloProducto={producto.tituloProducto} />
+                                        {/* Imagen con efecto hover */}
+                                        <div className="relative aspect-square w-full overflow-hidden rounded-lg cursor-pointer" onClick={()=> verProducto(producto.id_producto)}>
+                                            <div className="transition-transform duration-500 group-hover:scale-110">
+                                                <MediaCardImage
+                                                    imagenProducto={producto.imagenProducto}
+                                                    tituloProducto={producto.tituloProducto} />
+                                            </div>
+                                            {/* Overlay hover */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                         </div>
 
-                                        <div className="w-full flex flex-col justify-center gap-2 mt-5 flex-grow">
-                                            <p className="text-xs md:text-sm text-center font-bold">{producto.tituloProducto}</p>
-                                            <p className="text-xs md:text-base  text-center text-sky-700 font-bold">${producto.valorProducto}</p>
+                                        {/* Contenido con altura fija para alinear botones */}
+                                        <div className="w-full flex flex-col justify-start gap-1 md:gap-2 mt-1.5 md:mt-3 flex-grow">
+                                            {/* Título con altura mínima fija MÁS GRANDE en móviles */}
+                                            <p className="text-[9px] md:text-xs text-center font-bold text-slate-800 line-clamp-2 min-h-[2.2rem] md:min-h-[2rem] leading-snug">
+                                                {producto.tituloProducto}
+                                            </p>
+
+                                            {/* Precio destacado con badge MÁS PEQUEÑO */}
+                                            <div className="flex justify-center">
+                                                <span className="inline-flex items-center bg-gradient-to-r from-sky-600 to-sky-700 text-white px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full text-[9px] md:text-xs font-bold shadow-sm">
+                                                    ${Number(producto.valorProducto).toLocaleString('es-CL')}
+                                                </span>
+                                            </div>
                                         </div>
 
-                                        <div className="flex justify-center gap-2 mt-auto">
-                                            <button className="border p-2 rounded bg-sky-950 text-white hover:bg-blue-600 text-xs md:text-sm  "><ShoppingCartIcon className="h-6 w-6 " onClick={()=> agregarAlCarrito(producto)}/></button>
-                                            <button className=" border p-2 rounded bg-sky-950 text-white font-bold hover:bg-blue-600 hidden md:block" onClick={()=> comprarAhora(producto)}>Comprar</button>
+                                        {/* Botones siempre al final con mt-auto MÁS PEQUEÑOS */}
+                                        <div className="flex justify-center gap-1 mt-auto w-full pt-1 md:pt-2">
+                                            <button
+                                                className="flex items-center justify-center border-0 p-1 md:p-2 rounded bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white shadow-sm hover:shadow-md transition-all duration-200"
+                                                onClick={()=> agregarAlCarrito(producto)}
+                                            >
+                                                <ShoppingCartIcon className="h-3 w-3 md:h-4 md:w-4" />
+                                            </button>
+                                            <button
+                                                className="border-0 px-2 py-1 rounded bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white font-medium shadow-sm hover:shadow-md transition-all duration-200 hidden md:block text-[10px]"
+                                                onClick={()=> comprarAhora(producto)}
+                                            >
+                                                Comprar
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

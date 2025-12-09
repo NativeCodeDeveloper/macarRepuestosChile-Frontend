@@ -18,10 +18,12 @@ export function ShadcnNavBar() {
 
     const [carrito, _setCarrito] = useCarritoGlobal();
     const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
+    const [carritoGlobalCanitidad, setCarritoGlobalCanitidad] = React.useState(0)
 
-
-
-    const carritoGlobalCanitidad = carrito.length || 0;
+    // Sincronizar la cantidad del carrito solo en el cliente para evitar errores de hidratación
+    React.useEffect(() => {
+        setCarritoGlobalCanitidad(carrito.length || 0);
+    }, [carrito]);
 
     return (
         <div className="w-full bg-gradient-to-b from-gray-950 to-gray-900 border-b border-gray-800 shadow-xl">

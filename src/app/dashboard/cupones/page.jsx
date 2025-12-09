@@ -1,13 +1,11 @@
 "use client"
 import {ShadcnButton} from "@/Componentes/shadcnButton";
 import {ShadcnInput} from "@/Componentes/shadcnInput";
-import {ShadcnTable} from "@/Componentes/shadcnTable";
 import {Textarea} from "@/components/ui/textarea";
 import {useState, useEffect} from "react";
 import ToasterClient from "@/Componentes/ToasterClient";
 import {toast} from "react-hot-toast";
-import {Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow,} from "@/components/ui/table"
-import {i} from "framer-motion/m";
+import {Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
 
 export default function Cupones() {
     const API = process.env.NEXT_PUBLIC_API_URL;
@@ -231,13 +229,16 @@ export default function Cupones() {
     }
 
     useEffect(() => {
-        listarTablaCupones();
+        const cargarCupones = async () => {
+            await listarTablaCupones();
+        };
+        cargarCupones();
     }, [])
 
 
 function mostrarIdSeleccionado(id_cupon) {
     if (!id_cupon) {
-       return  id_cupon = "-"
+       return "-"
     }else {
         return id_cupon;
     }
