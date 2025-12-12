@@ -103,10 +103,10 @@ export function ShadcnNavBar() {
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid gap-3 p-4 md:w-[450px] lg:w-[550px]">
-                            <ListItem href="/catalogo" title="🔍 Búsqueda de Repuestos">
+                            <ListItem href="/catalogo" title="Búsqueda de Repuestos">
                                 Encuentra el repuesto exacto que necesitas para tu vehículo Maxus.
                             </ListItem>
-                            <ListItem href="/formularioContacto" title="💬 Asesoría Técnica">
+                            <ListItem href="/formularioContacto" title="Asesoría Técnica">
                                 Nuestros expertos te ayudan a elegir el repuesto correcto.
                             </ListItem>
                         </ul>
@@ -137,9 +137,13 @@ export function ShadcnNavBar() {
                     <div className="flex items-center gap-4 ml-6">
                         {/* Número de teléfono */}
                         <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600/20 to-indigo-600/20 border border-blue-500/30 backdrop-blur-sm">
-                            <Phone className="w-5 h-5 text-blue-400 animate-pulse" />
+                            <img
+                                src="https://www.svgrepo.com/show/176768/whatsapp-social-media.svg"
+                                className="w-6 h-6"
+                                alt="WhatsApp"
+                            />
                             <a
-                                href="tel:+56995043704"
+                                href="tel:+56943805047"
                                 className="text-base font-semibold text-white hover:text-blue-400 transition-colors duration-200"
                             >
                                 +56 9 9504 3704
@@ -232,7 +236,7 @@ export function ShadcnNavBar() {
                                     className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
-                                    <span className="text-xl group-hover:scale-110 transition-transform">🚚</span>
+                                    <span className="text-xl group-hover:scale-110 transition-transform"></span>
                                     <div className="flex-1">
                                         <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
                                             Envíos a Todo Chile
@@ -244,7 +248,7 @@ export function ShadcnNavBar() {
                                     className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
-                                    <span className="text-xl group-hover:scale-110 transition-transform">✅</span>
+                                    <span className="text-xl group-hover:scale-110 transition-transform"></span>
                                     <div className="flex-1">
                                         <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
                                             Garantía de Calidad

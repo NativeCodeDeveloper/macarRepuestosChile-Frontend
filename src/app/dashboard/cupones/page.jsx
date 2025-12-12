@@ -150,7 +150,7 @@ export default function Cupones() {
                     await listarTablaCupones();
                     return toast.success("Se ha eliminado el cupon con exito!");
                 }else{
-                    return toast.error("Ha ocurrido un problema con la insercion  del cupon porfavor intente mas tarde.");
+                    return toast.error("Ha ocurrido un problema con la eliminacion del cupon porfavor intente mas tarde.");
                 }
             }
         }catch (error) {
@@ -216,23 +216,20 @@ export default function Cupones() {
                 mode: "cors"
             })
 
-            if (!res.ok) {
-                return toast.error('Problema al listar los cupones contacte a soporte de NativeCode');
-            } else {
 
-                const dataCupones = await res.json();
+            const dataCupones = await res.json();
+
+            if (Array.isArray(dataCupones)) {
                 setTablaCupones(dataCupones);
             }
+
         }catch(error) {
             return toast.error('Problema al listar los cupones contacte a soporte de NativeCode el error es :' +  error.message);
         }
     }
 
     useEffect(() => {
-        const cargarCupones = async () => {
-            await listarTablaCupones();
-        };
-        cargarCupones();
+            listarTablaCupones();
     }, [])
 
 

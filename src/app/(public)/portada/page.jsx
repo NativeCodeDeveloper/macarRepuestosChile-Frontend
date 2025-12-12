@@ -129,10 +129,10 @@ export default function Portada() {
                                 ))}
                             </div>
                         </div>
-                     </motion.div>
+                    </motion.div>
 
                 </motion.div>
-             </div>
+            </div>
 
 
 
@@ -246,27 +246,27 @@ export default function Portada() {
                                 className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto mt-4 "
                             >
                                 {/* BOTÓN PRIMARIO AZUL - Más pequeño en móvil */}
-<Link href={"/catalogo"}>
-    <Button
-        size="lg"
-        className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-full sm:w-auto"
-    >
-        Ver Catálogo
-        <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
-    </Button>
-</Link>
+                                <Link href={"/catalogo"}>
+                                    <Button
+                                        size="lg"
+                                        className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-full sm:w-auto"
+                                    >
+                                        Ver Catálogo
+                                        <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                                    </Button>
+                                </Link>
 
                                 {/* BOTÓN SECUNDARIO (OUTLINE) - Más pequeño en móvil */}
-<Link href={"/formularioContacto"}>
-    <Button
-        size="lg"
-        variant="outline"
-        className="gap-2 border-2 border-blue-300 hover:border-blue-500 hover:bg-blue-50 text-blue-900 transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-full sm:w-auto"
-    >
-        <EnvelopeIcon className="w-5 h-5" />
-        Contáctanos
-    </Button>
-</Link>
+                                <Link href={"/formularioContacto"}>
+                                    <Button
+                                        size="lg"
+                                        variant="outline"
+                                        className="gap-2 border-2 border-blue-300 hover:border-blue-500 hover:bg-blue-50 text-blue-900 transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-full sm:w-auto"
+                                    >
+                                        <EnvelopeIcon className="w-5 h-5" />
+                                        Contáctanos
+                                    </Button>
+                                </Link>
                             </motion.div>
                         </div>
 
@@ -283,22 +283,22 @@ export default function Portada() {
                             className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto md:hidden -mt-100 ml-6"
                         >
 
-                        <div className={"justify-content-start"}>
-                            <h1 className={outfit.className}>Repuestos para Maxus Originales</h1>
-                        </div>
+                            <div className={"justify-content-start"}>
+                                <h1 className={outfit.className}>Repuestos para Maxus Originales</h1>
+                            </div>
 
 
-<div className="w-full gap-3">
+                            <div className="w-full gap-3">
 
-    <Link href={"/catalogo"}>
-        <Button size="lg" className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-50">
-            Ver Catálogo <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
-        </Button>
-    </Link>
+                                <Link href={"/catalogo"}>
+                                    <Button size="lg" className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-50">
+                                        Ver Catálogo <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                                    </Button>
+                                </Link>
 
 
 
-</div>
+                            </div>
 
 
                             <Image

@@ -20,8 +20,19 @@ import {
 import {ShadcnInput} from "@/Componentes/shadcnInput";
 import {ShadcnButton} from "@/Componentes/shadcnButton";
 
+import {Goldman} from "next/font/google"
+
 
 import {useSearchParams} from "next/navigation"
+
+import {
+    InputGroup,
+    InputGroupInput,
+    InputGroupAddon,
+    InputGroupButton,
+} from "@/components/ui/input-group"
+
+import { Search } from "lucide-react"
 
 
 export default function Catalogo({ searchParams = {} }) {
@@ -31,6 +42,11 @@ export default function Catalogo({ searchParams = {} }) {
     </Suspense>
   );
 }
+
+const goldman = Goldman({
+    subsets: ["latin"],
+    weight: ["400"]
+});
 
 
 function CatalogoInner() {
@@ -350,36 +366,191 @@ function CatalogoInner() {
         <>
             {/* DIV PRINCIPAL: Contenedor raíz del catálogo con ancho máximo de 7xl, centrado horizontalmente, padding responsivo y fondo blanco */}
             <div className="mt-15 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
+
+
+                <div className="block md:hidden">
+                    <h1 className={`${goldman.className} text-3xl md:text-4xl flex justify-center font-bold`}>CATALOGO DE REPUESTOS</h1>
+
+                    <div className="w-full  flex justify-center ">
+                        <div className="flex gap-6 ">
+
+                            <InputGroup  className="border-2 border-blue-600 hover:border-sky-600">
+                                <InputGroupInput
+                                    placeholder="Buscar productos..."
+                                    value={tituloProducto}
+                                    onChange={e => setTituloProducto(e.target.value)}
+                                />
+
+                                <InputGroupAddon align="inline-end">
+                                    <InputGroupButton >
+                                        <Search className="w-8 h-8" />
+                                    </InputGroupButton>
+                                </InputGroupAddon>
+                            </InputGroup>
+
+                            <ShadcnButton
+                                nombre={"Buscar "}
+                                className="rounded-2"
+                                funcion={() => buscarSimilitud(tituloProducto)}/>
+                        </div>
+
+                    </div>
+                    <br/>
+
+                    <ShadcnButton
+                        nombre={"Ver todos"}
+                        className="rounded-2"
+                        funcion={() => listarProductos()}/>
+                    <br/>
+                    <p className="text-gray-700 text-base font-bold">Filtrar Por:</p>
+
+
+
+                    <Select onValueChange={(value) => filtrarPorCategoria(value)}>
+                        <SelectTrigger className="w-60 md:w-80  ">
+                            <SelectValue  placeholder="Tipo de Repuesto" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {listaCategorias.map(categoria => (
+
+                                <SelectItem key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>{categoria.descripcionCategoria}</SelectItem>
+                            ))}
+
+                        </SelectContent>
+                    </Select>
+
+
+                    <Select onValueChange={(value) =>{
+                        if(value === "menor"){
+                            ordenarMenorPrecio()
+                        }else if(value === "mayor"){
+                            ordenarMayorPrecio()
+                        }else if(value === "reciente"){
+                            listarRecientes()
+                        }else if(value === "antiguo"){
+                            listarProductos()
+                        }
+                    }}>
+                        <SelectTrigger className="w-60 mt-3">
+                            <SelectValue  placeholder="Precios" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectItem value="menor">Precio, menor a mayor</SelectItem>
+                            <SelectItem value="mayor">Precio, mayor a menor</SelectItem>
+                            <SelectItem value="reciente">Fecha: reciente a antiguo(a)</SelectItem>
+                            <SelectItem value="antiguo">Fecha: antiguo(a) a reciente</SelectItem>
+                        </SelectContent>
+                    </Select>
+
+
+
+
+                </div>
+
+
+
+
                 {/* Encabezado del catálogo: título, subtítulo, breadcrumb y acciones visuales */}
-                <header className="mb-8">
+                <header className="mb-8 border-2 p-8 rounded-2xl shadow-sm hidden md:block">
 
                     {/* Título principal llamativo y subtítulo descriptivo */}
-                    <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-shadow-sky-500">CATALOGO DE REPUESTOS</h1>
-                    <br/>
-                    <p className="mt-2 text-base md:text-lg text-gray-600">Encuentra el repuesto Maxus que deseas</p>
-
+                    <h1 className={`${goldman.className} text-3xl md:text-4xl flex justify-center font-bold`}>CATALOGO DE REPUESTOS</h1>
+                    <p className="mt-2 text-base md:text-2xl text-gray-600 flex justify-center">Encuentra el repuesto Maxus que deseas</p>
 
 
                     {/*BOTON DE BUSQUEDA DE CATALOGO*/}
                     {/*BOTON DE BUSQUEDA DE CATALOGO*/}
-                    <div className="w-50 md:w-150">
 
-                        <ShadcnInput value={tituloProducto}
-                                     onChange={e => setTituloProducto(e.target.value)}
-                                     placeholder={"Ej.: Correa de ... "} />
+<div className="w-full  flex justify-center ">
+    <div className="w-50 flex gap-6 ">
+
+        <InputGroup  className="border-2 border-blue-600 hover:border-sky-600">
+            <InputGroupInput
+                placeholder="Buscar productos..."
+                value={tituloProducto}
+                onChange={e => setTituloProducto(e.target.value)}
+            />
+
+            <InputGroupAddon align="inline-end">
+                <InputGroupButton >
+                    <Search className="w-8 h-8" />
+                </InputGroupButton>
+            </InputGroupAddon>
+        </InputGroup>
+
+        <ShadcnButton
+
+            nombre={"Buscar "}
+            className="rounded-2"
+            funcion={() => buscarSimilitud(tituloProducto)}/>
+
+        <ShadcnButton
+            nombre={"Ver todos"}
+            className="rounded-2"
+            funcion={() => listarProductos()}/>
+
+
+
+
+</div>
+</div>
+
+
+                    <div className="w-full  flex justify-center">
+
+                        <div className="w-50 md:w-150 flex gap-6 mt-10  ">
+
+
+
+
+
+                            {/* DIV CONTROLES DE ORDENAMIENTO: Contenedor alineado a la derecha con el selector de orden de productos */}
+                            <div className="ml-auto flex gap-2">
+
+                                <Select onValueChange={(value) => filtrarPorCategoria(value)}>
+                                    <SelectTrigger className="w-60 md:w-80 font-bold text-gray-900 ">
+                                        <SelectValue  placeholder="Busca por Categoria" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {listaCategorias.map(categoria => (
+
+                                            <SelectItem key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>{categoria.descripcionCategoria}</SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+
+
+
+                                <Select onValueChange={(value) =>{
+                                    if(value === "menor"){
+                                        ordenarMenorPrecio()
+                                    }else if(value === "mayor"){
+                                        ordenarMayorPrecio()
+                                    }else if(value === "reciente"){
+                                        listarRecientes()
+                                    }else if(value === "antiguo"){
+                                        listarProductos()
+                                    }
+                                }}>
+                                    <SelectTrigger className="w-60 md:w-80 font-bold text-gray-900 ">
+                                        <SelectValue  placeholder="Ordenar por" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="menor">Precio, menor a mayor</SelectItem>
+                                        <SelectItem value="mayor">Precio, mayor a menor</SelectItem>
+                                        <SelectItem value="reciente">Fecha: reciente a antiguo(a)</SelectItem>
+                                        <SelectItem value="antiguo">Fecha: antiguo(a) a reciente</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
+
+                            </div>
+
+                        </div>
 
                     </div>
 
-                    <div className="mt-10 flex gap-6">
 
-                        <ShadcnButton
-                                      nombre={"Buscar Similitud"}
-                                      funcion={() => buscarSimilitud(tituloProducto)}/>
-
-                        <ShadcnButton
-                            nombre={"Ver todos"}
-                            funcion={() => listarProductos()}/>
-                    </div>
 
 
 
@@ -398,62 +569,18 @@ function CatalogoInner() {
 
 
 
-                        {/* DIV CONTROLES DE ORDENAMIENTO: Contenedor alineado a la derecha con el selector de orden de productos */}
-                        <div className="ml-auto flex flex-col gap-2">
 
-
-
-                            <Select onValueChange={(value) => filtrarPorCategoria(value)}>
-                                <SelectTrigger className="w-60 md:w-80 ">
-                                    <SelectValue  placeholder="Busca por Categoria" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    {listaCategorias.map(categoria => (
-
-                                        <SelectItem key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>{categoria.descripcionCategoria}</SelectItem>
-                                    ))}
-
-                                </SelectContent>
-                            </Select>
-
-
-
-
-
-
-
-                            <Select onValueChange={(value) =>{
-                                if(value === "menor"){
-                                    ordenarMenorPrecio()
-                                }else if(value === "mayor"){
-                                   ordenarMayorPrecio()
-                                }else if(value === "reciente"){
-                                    listarRecientes()
-                                }else if(value === "antiguo"){
-                                    listarProductos()
-                                }
-                            }}>
-                                <SelectTrigger className="w-80">
-                                    <SelectValue  placeholder="Ordenar por" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="menor">Precio, menor a mayor</SelectItem>
-                                    <SelectItem value="mayor">Precio, mayor a menor</SelectItem>
-                                    <SelectItem value="reciente">Fecha: reciente a antiguo(a)</SelectItem>
-                                    <SelectItem value="antiguo">Fecha: antiguo(a) a reciente</SelectItem>
-                                </SelectContent>
-                            </Select>
-
-
-                        </div>
                     </div>
                 </header>
 
                 {/* Separador sutil entre encabezado y contenido */}
+
+
                 <hr className="my-6 border-gray-100" />
 
 
                 {/* DIV LAYOUT PRINCIPAL: Grid responsivo que divide la página en 1 columna móvil y 5 columnas escritorio (1 sidebar + 4 productos) */}
+
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
 
 
@@ -462,6 +589,7 @@ function CatalogoInner() {
                     <aside className="
                     hidden md:block
                     sticky top-5 self-start h-fit">
+
 
 
                         {/* DIV CARD CATEGORÍAS: Contenedor principal con efecto glassmorphism, gradiente y sombras para el panel de categorías */}
