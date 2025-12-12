@@ -895,42 +895,45 @@ async function marcarOfertaProductos(id_producto) {
 
 
 
+<div>
 
+    <div className="w-full md:max-w-sm">
+        <br/><br/>
+        <label className="block text-sm font-semibold text-slate-700 mb-2">Filtrar por categoría</label>
+        <div className="relative">
+            <select
+                className="w-full appearance-none rounded-xl border border-slate-300 bg-white px-3 py-2 pr-10 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 hover:border-blue-400"
+                value={categoriaProductoSeleccion}
+                onChange={(e) => {
+                    const value = e.target.value;
+                    setcategoriaProductoSeleccion(value);
+                    filtrarPorCategoria(value);
+                }}
+            >
+                <option value="">-- Selecciona una categoría --</option>
+                {listadoCategorias.map((categoria) => (
+                    <option key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>
+                        {categoria.descripcionCategoria}
+                    </option>
+                ))}
+            </select>
+            {/* Caret decorativo */}
+            <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-500">▾</span>
 
-          {/*FILTRO SELECCION DE PRODUCTOS POR CATEGORIA*/}
-  <div className="w-full md:max-w-sm">
-      <br/><br/>
-    <label className="block text-sm font-semibold text-slate-700 mb-2">Filtrar por categoría</label>
-    <div className="relative">
-      <select
-        className="w-full appearance-none rounded-xl border border-slate-300 bg-white px-3 py-2 pr-10 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/50 hover:border-blue-400"
-        value={categoriaProductoSeleccion}
-        onChange={(e) => {
-          const value = e.target.value;
-          setcategoriaProductoSeleccion(value);
-          filtrarPorCategoria(value);
-        }}
-      >
-        <option value="">-- Selecciona una categoría --</option>
-        {listadoCategorias.map((categoria) => (
-          <option key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>
-            {categoria.descripcionCategoria}
-          </option>
-        ))}
-      </select>
-      {/* Caret decorativo */}
-      <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-500">▾</span>
+        </div>
+        <br/><br/>
     </div>
-  </div>
 
-          <br/>
 
-          {/* FORMULARIO PARA ENCONTRAR POR SIMILITUD DE NOMBRE EN CONSULTA A LA BASE DE DATOS*/}
-          <div className="w-full md:max-w-md">
-            <div className="rounded-2xl border border-slate-200 bg-white/80 backdrop-blur p-4 md:p-5 shadow-sm">
-              <label className="block text-sm font-semibold text-slate-700">Buscar por similitud en nombre</label>
-              <p className="mt-1 text-xs text-slate-500">Encuentra productos con títulos parecidos. Escribe al menos 3 caracteres.</p>
-              <div className="mt-3 relative flex w-full">
+
+
+
+    {/* FORMULARIO PARA ENCONTRAR POR SIMILITUD DE NOMBRE EN CONSULTA A LA BASE DE DATOS*/}
+    <div className="w-full md:max-w-md ">
+        <div className="rounded-2xl border border-slate-200 bg-white/80 backdrop-blur p-4 md:p-5 shadow-sm">
+            <label className="block text-sm font-semibold text-slate-700">Buscar por similitud en nombre</label>
+            <p className="mt-1 text-xs text-slate-500">Encuentra productos con títulos parecidos. Escribe al menos 3 caracteres.</p>
+            <div className="mt-3 relative flex w-full">
                 {/* Icono decorativo */}
                 <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-slate-400">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
@@ -938,21 +941,26 @@ async function marcarOfertaProductos(id_producto) {
                   </svg>
                 </span>
                 <input
-                  onChange={(e) => settituloSimilar(e.target.value)}
-                  type="text"
-                  placeholder="Ej: anillos plata, collares..."
-                  className="w-full rounded-l-xl border border-slate-300 bg-white pl-9 pr-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 hover:border-blue-400"
+                    onChange={(e) => settituloSimilar(e.target.value)}
+                    type="text"
+                    placeholder="Ej: anillos plata, collares..."
+                    className="w-full rounded-l-xl border border-slate-300 bg-white pl-9 pr-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/40 hover:border-blue-400"
                 />
                 <button
-                  onClick={() => { buscarSimilar(tituloSimilar) }}
-                  type="button"
-                  className="inline-flex items-center justify-center whitespace-nowrap rounded-r-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40 active:scale-[.99]"
-                  aria-label="Buscar productos por similitud"
+                    onClick={() => { buscarSimilar(tituloSimilar) }}
+                    type="button"
+                    className="inline-flex items-center justify-center whitespace-nowrap rounded-r-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/40 active:scale-[.99]"
+                    aria-label="Buscar productos por similitud"
                 >
-                  Buscar
+                    Buscar
                 </button>
-              </div>
             </div>
+        </div>
+         </div>
+
+    <br/><br/>
+
+    <ShadcnButton className="bg-purple-600" nombre={"Ver Todos"} funcion={()=> cargarProductos()}/>
           </div>
 
 
