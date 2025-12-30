@@ -742,7 +742,7 @@ function CatalogoInner() {
                                         <div className="relative aspect-square w-full overflow-hidden rounded-lg cursor-pointer" onClick={()=> verProducto(producto.id_producto)}>
                                             <div className="transition-transform duration-500 group-hover:scale-110">
                                                 <MediaCardImage
-                                                    imagenProducto={producto.imagenProducto}
+                                                    imagenProducto={`https://imagedelivery.net/aCBUhLfqUcxA2yhIBn1fNQ/${producto.imagenProducto}/card`}
                                                     tituloProducto={producto.tituloProducto} />
                                             </div>
                                             {/* Overlay hover */}

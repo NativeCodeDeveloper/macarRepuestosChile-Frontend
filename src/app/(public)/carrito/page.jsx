@@ -178,7 +178,7 @@ export default function Carrito() {
                                             nombre={"Eliminar"}/></span>
                                     </TableCell>
                                     <TableCell className="px-4 py-4 text-sm text-gray-800 align-middle border-b"><img
-                                        src={producto.imagenProducto} alt={"Imagen Producto"} width={100}
+                                        src={`https://imagedelivery.net/aCBUhLfqUcxA2yhIBn1fNQ/${producto.imagenProducto}/mini`} alt={"Imagen Producto"} width={100}
                                         height={100} className="object-cover rounded"/></TableCell>
                                     <TableCell
                                         className="px-4 py-4 text-sm text-gray-800 align-middle border-b">{producto.cantidadVendida}</TableCell>
@@ -211,7 +211,7 @@ export default function Carrito() {
                 <div className="md:hidden mt-6 space-y-4">
                     {isMounted && productosDelCarrito.map((producto) => (
                         <div key={producto.id_producto} className="bg-white rounded-lg shadow p-4 flex items-start gap-4">
-                            <img src={producto.imagenProducto} alt={producto.tituloProducto} className="w-20 h-20 object-cover rounded flex-shrink-0" />
+                            <img src={`https://imagedelivery.net/aCBUhLfqUcxA2yhIBn1fNQ/${producto.imagenProducto}/mini`} alt={producto.tituloProducto} className="w-20 h-20 object-cover rounded flex-shrink-0" />
                             <div className="flex-1 min-w-0">
                                 <div className="flex justify-between items-start">
                                     <div className="min-w-0">

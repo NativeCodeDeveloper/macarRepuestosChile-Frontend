@@ -200,7 +200,7 @@ export function ShadcnNavBar() {
                             className="px-4 py-3 rounded-lg text-base font-semibold text-gray-200 hover:text-white hover:bg-gray-800/50 transition-all"
                             onClick={() => setMobileMenuOpen(false)}
                         >
-                            📦 Catálogo Completo
+                            Catálogo Completo
                         </Link>
 
                         {/* Servicios */}
@@ -212,7 +212,6 @@ export function ShadcnNavBar() {
                                     className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
-                                    <span className="text-xl group-hover:scale-110 transition-transform">🔍</span>
                                     <div className="flex-1">
                                         <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
                                             Búsqueda de Repuestos
@@ -224,7 +223,7 @@ export function ShadcnNavBar() {
                                     className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-800/30 hover:bg-gray-800/60 border border-gray-700/50 hover:border-gray-600 transition-all group"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
-                                    <span className="text-xl group-hover:scale-110 transition-transform">💬</span>
+
                                     <div className="flex-1">
                                         <p className="text-sm font-semibold text-gray-200 group-hover:text-white">
                                             Asesoría Técnica
