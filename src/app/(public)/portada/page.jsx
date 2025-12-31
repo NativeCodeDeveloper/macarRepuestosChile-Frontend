@@ -77,19 +77,17 @@ export default function Portada() {
             {/* ========== IMAGEN DE FONDO VISIBLE ========== */}
             {/* Contenedor posicionado para que Next/Image con `fill` funcione correctamente. */}
             {/* Usamos z-0 aquí y z-10 en el contenido para evitar dependencias de clases Tailwind negativas como `-z-10`. */}
-            <div className="absolute inset-0 z-0" aria-hidden="true">
-                {/* Next/Image con `fill` se posiciona de forma absoluta respecto a su ancestro posicionado.
-                    Añadimos style objectFit/objectPosition además de las clases para garantizar que siempre cubra el contenedor. */}
+            <div className="absolute inset-0 z-0 h-40 sm:h-[400px] md:h-full" aria-hidden="true">
                 <Image
                     src={maxusBg}
                     alt="Fondo Maxus"
-                    fill                // ocupa todo el contenedor
-                    priority            // se carga primero (LCP)
-                    placeholder="blur"  // blur mientras carga
-                    quality={100}        // baja un poco la calidad para más velocidad
-                    sizes="65vw"       // Next genera tamaños responsivos
+                    fill
+                    priority
+                    placeholder="blur"
+                    quality={100}
+                    sizes="65vw"
                     style={{ objectFit: 'cover', objectPosition: 'center' }}
-                    className="opacity-90"
+                    className="opacity-90 h-40 sm:h-[400px] md:h-full"
                 />
             </div>
             {/* ========== OVERLAY SUTIL ========== */}
