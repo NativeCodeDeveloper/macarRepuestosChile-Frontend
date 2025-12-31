@@ -60,6 +60,7 @@ function CatalogoInner() {
     const [listaCategorias, setListaCategorias] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [tituloProducto, setTituloProducto] = useState("");
+    const [contador, setContador] = useState(0);
 
     // Obtener parámetros de búsqueda
     const id_CategoriaNavBar = searchParams.get("id_categoriaProducto");
@@ -354,13 +355,9 @@ function CatalogoInner() {
 
 
 
-
-
-
-
-
-
-
+    useEffect(() => {
+        setContador(listaProductos.length)
+    }, [listaProductos]);
 
     return (
         <>
@@ -572,6 +569,13 @@ function CatalogoInner() {
 
                     </div>
                 </header>
+
+
+
+                <div className="w-full flex justify-end gap-3">
+
+                    <label>Productos Disponibles :  </label><span>{contador}</span>
+                </div>
 
                 {/* Separador sutil entre encabezado y contenido */}
 
