@@ -50,6 +50,12 @@ export default function MisionMacarCard() {
                         Destacamos como emprendimiento chileno de la Región de Ñuble, reconocidos por <span className="text-blue-700 font-bold">especialización, confiabilidad y excelencia en el servicio</span>.<br/>
                         Comprometidos con la calidad y seguridad automotriz.
                     </p>
+                    <br />
+                    <h3 className="bg-gradient-to-r from-blue-900 via-blue-700 to-cyan-400 bg-clip-text text-transparent drop-shadow-xl">Satisfacción al cliente</h3>
+                    <p className="plasholder:mt-1 text-center text-sm sm:text-base md:text-lg leading-relaxed text-gray-500 font-semibold drop-shadow-sm">
+                        En Macar Repuestos Chile, la satisfacción de nuestros clientes es el eje central de nuestro trabajo. Nos comprometemos a entregar productos 100% originales, información clara, asesoría especializada y un servicio eficiente antes, 
+                        durante y después de cada compra. Medimos nuestro éxito a través de la confianza, fidelización y recomendación de nuestros clientes, asegurando una experiencia comercial seria, segura y de alto estándar.
+                    </p>
                 </div>
 
                 {/* Logo móvil */}
