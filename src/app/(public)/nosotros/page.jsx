@@ -27,7 +27,7 @@ export default function SobreNosotrosCard() {
                 </div>
 
                 {/* Card Sobre Nosotros */}
-                <div className="w-full max-w-full md:max-w-3xl rounded-2xl md:rounded-3xl border border-blue-900/20 bg-white/80 backdrop-blur-xl shadow-2xl p-3 sm:p-6 md:p-12 mb-4 flex flex-col items-center min-h-[220px] sm:min-h-[300px] md:min-h-[500px]">
+                <div className="w-full max-w-full md:max-w-3xl rounded-2xl md:rounded-3xl border border-blue-900/20 bg-white/80 backdrop-blur-xl shadow-2xl p-3 sm:p-6 md:p-12 mb-4 flex flex-col items-center min-h-[220px] sm:min-h-[300px] md:min-h-[500px] px-2 sm:px-6 md:px-12">
                     <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-center mb-3">
                         <span className="bg-gradient-to-r from-blue-900 via-blue-700 to-cyan-400 bg-clip-text text-transparent drop-shadow-xl">Sobre Nosotros</span>
                     </h2>
