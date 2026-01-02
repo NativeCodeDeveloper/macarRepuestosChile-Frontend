@@ -297,12 +297,7 @@ export default function Portada() {
                             className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto md:hidden -mt-100 ml-6"
                         >
 
-                            <div className={"justify-content-start text-white text-center mt-12 bg-white/50 rounded-xl shadow-lg backdrop-blur p-6"}>
-                                <h1 className={outfit.className}>Repuestos originales para tus vehículos Maxus</h1>
-                            </div>
-
-
-                            <div className="w-full gap-3 mt-12">
+                            <div className="w-full gap-3 mt-14 flex flex-col sm:flex-row md:hidden">
 
                                 <Link href={"/catalogo"}>
                                     <Button size="lg" className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-50">
