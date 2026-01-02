@@ -78,7 +78,7 @@ export default function Portada() {
             {/* ========== IMAGEN DE FONDO VISIBLE ========== */}
             {/* Contenedor posicionado para que Next/Image con `fill` funcione correctamente. */}
             {/* Usamos z-0 aquí y z-10 en el contenido para evitar dependencias de clases Tailwind negativas como `-z-10`. */}
-            <div className="absolute inset-0 z-0 w-full h-screen" aria-hidden="true">
+            <div className="absolute inset-0 z-0 w-full h-screen md:h-[85vh]" aria-hidden="true">
                 {/* Imagen para celulares */}
                 <Image
                     src="/maxuscel.png"
