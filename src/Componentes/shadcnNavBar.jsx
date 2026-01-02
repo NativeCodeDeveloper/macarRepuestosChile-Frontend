@@ -76,7 +76,7 @@ export function ShadcnNavBar() {
                                         className="no-underline flex h-full w-full select-none flex-col justify-end rounded-lg bg-black p-6 no-outline hover:shadow-xl transition-all duration-300"
                                         href="/">
 
-                                        <img src="/logogrande.png" 
+                                        <img src="/logoGrande.png" 
                                         alt="Macar Repuestos"
                                         className="w-full mb-2 object-contain" />        
 
