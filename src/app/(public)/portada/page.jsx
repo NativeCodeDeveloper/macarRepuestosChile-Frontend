@@ -22,6 +22,7 @@ const outfit = Outfit({
 export default function Portada() {
 
     const [titleNumber, setTitleNumber] = useState(0);
+
     // Convertimos los títulos a objetos para poder asignar color permanente a cada uno
     const titles = useMemo(
         () => [
@@ -77,17 +78,22 @@ export default function Portada() {
             {/* ========== IMAGEN DE FONDO VISIBLE ========== */}
             {/* Contenedor posicionado para que Next/Image con `fill` funcione correctamente. */}
             {/* Usamos z-0 aquí y z-10 en el contenido para evitar dependencias de clases Tailwind negativas como `-z-10`. */}
-            <div className="absolute inset-0 z-0 h-40 sm:h-[400px] md:h-full" aria-hidden="true">
+            <div className="absolute inset-0 z-0 w-full h-[40vh] sm:h-[60vh] md:h-screen" aria-hidden="true">
+                {/* Imagen para celulares */}
+                <Image
+                    src="/maxuscel.png"
+                    alt="Fondo Maxus Mobile"
+                    fill
+                    priority
+                    className="object-cover object-center w-full h-full opacity-90 block md:hidden"
+                />
+                {/* Imagen para desktop/tablet */}
                 <Image
                     src={maxusBg}
                     alt="Fondo Maxus"
                     fill
                     priority
-                    placeholder="blur"
-                    quality={100}
-                    sizes="65vw"
-                    style={{ objectFit: 'cover', objectPosition: 'center' }}
-                    className="opacity-90 h-40 sm:h-[400px] md:h-full"
+                    className="object-cover object-center w-full h-full opacity-90 hidden md:block"
                 />
             </div>
             {/* ========== OVERLAY SUTIL ========== */}
@@ -122,7 +128,7 @@ export default function Portada() {
                         {/*LOGO EN CELULARES*/}
                         <Image
                             className="relative rounded-xl md:hidden"
-                            src={"/logoBlack.png"}
+                            src={"/logoBlack2.png"}
                             alt={"Macar Repuestos"}
                             height={350}
                             width={280}
@@ -184,9 +190,6 @@ export default function Portada() {
 
 
 
-
-
-
             {/* ========== CONTENEDOR DEL CONTENIDO PRINCIPAL ========== */}
             <div className="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-center lg:justify-end min-h-screen py-20 sm:py-24 lg:py-32">
@@ -194,7 +197,6 @@ export default function Portada() {
                     <div className="flex flex-col items-center lg:items-end text-center lg:text-right gap-12 sm:gap-16 lg:gap-20 max-w-3xl w-full px-2 sm:px-4">
 
                         {/* ========== BADGE PREMIUM GLASSMORPHISM ========== */}
-
 
                         {/* ========== TÍTULO PREMIUM CON FONDO SUTIL ========== */}
                         <motion.div
@@ -206,29 +208,38 @@ export default function Portada() {
                             {/* Lista premium estilo startup con tarjetas separadas */}
 
 
-
                             {/* Lista profesional animada de beneficios (MotionCards) */}
                             <div className="hidden md:flex flex-col items-end justify-end self-end w-full pt-4 text-right" style={{ zIndex: 10 }}>
                                 <MotionCards interval={120} className="w-full items-end text-right max-w-md">
-                                    <MotionCardContent className="flex gap-3">
-                                        <Layers className="w-6 h-6" />
-                                        <span className="font-semibold">Cobertura nacional: despacho seguro y rápido a todo Chile</span>
+                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
+                                        <Layers className="w-6 h-6 flex-shrink-0" />
+                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
+                                          Cobertura nacional: despacho seguro y rápido a todo Chile
+                                        </span>
                                     </MotionCardContent>
-                                    <MotionCardContent className="flex gap-3">
-                                        <LucideComponent className="w-6 h-6" />
-                                        <span className="font-semibold">Mantenciones integrales para vehículos Maxus</span>
+                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
+                                        <LucideComponent className="w-6 h-6 flex-shrink-0" />
+                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
+                                          Mantenciones integrales para vehículos Maxus
+                                        </span>
                                     </MotionCardContent>
-                                    <MotionCardContent className="flex gap-3">
-                                        <LayoutPanelTop className="w-6 h-6" />
-                                        <span className="font-semibold">Repuestos originales: calidad y compatibilidad garantizadas</span>
+                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
+                                        <LayoutPanelTop className="w-6 h-6 flex-shrink-0" />
+                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
+                                          Repuestos originales: calidad y compatibilidad garantizadas
+                                        </span>
                                     </MotionCardContent>
-                                    <MotionCardContent className="flex gap-3">
-                                        <Scroll className="w-6 h-6" />
-                                        <span className="font-semibold">Entrega eficiente y soporte postventa profesional</span>
+                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
+                                        <Scroll className="w-6 h-6 flex-shrink-0" />
+                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
+                                          Entrega eficiente y soporte postventa profesional
+                                        </span>
                                     </MotionCardContent>
-                                    <MotionCardContent className="flex gap-3">
-                                        <Package className="w-6 h-6" />
-                                        <span className="font-semibold">Stock permanente y atención personalizada</span>
+                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
+                                        <Package className="w-6 h-6 flex-shrink-0" />
+                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
+                                          Stock permanente y atención personalizada
+                                        </span>
                                     </MotionCardContent>
                                 </MotionCards>
                             </div>
@@ -285,37 +296,29 @@ export default function Portada() {
                             className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto md:hidden -mt-100 ml-6"
                         >
 
-                            <div className={"justify-content-start"}>
-                                <h1 className={outfit.className}>Repuestos para Maxus Originales</h1>
+                            <div className={"justify-content-start text-white text-center mt-12 bg-white/50 rounded-xl shadow-lg backdrop-blur p-6"}>
+                                <h1 className={outfit.className}>Repuestos originales para tus vehículos Maxus</h1>
                             </div>
 
 
-                            <div className="w-full gap-3">
+                            <div className="w-full gap-3 mt-12">
 
                                 <Link href={"/catalogo"}>
                                     <Button size="lg" className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-50">
                                         Ver Catálogo <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
                                     </Button>
                                 </Link>
-
-
-
                             </div>
 
-
                             <Image
-                                className="relative rounded-xl block  md:hidden ml-30 -mt-9 "
+                                className="mx-auto mt-10 relative rounded-xl block  md:hidden"
                                 src={"/logoMaxusBlack.png"}
                                 alt={"Macar Repuestos"}
-                                height={150}
-                                width={180}
+                                height={200}
+                                width={200}
                                 priority
                             />
                         </motion.div>
-
-
-
-
 
                     </div>
                 </div>

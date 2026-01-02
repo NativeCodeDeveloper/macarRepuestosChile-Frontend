@@ -2,32 +2,29 @@ import Image from "next/image";
 
 export default function SobreNosotrosCard() {
     return (
-        <section className="relative w-full min-h-screen overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl border border-blue-900/10">
-            {/* Imagen de fondo */}
-            <Image
-                src="/maxus1.jpg"
-                alt="maxusimage"
-                width={1230}
-                height={1200}
-                className="w-full min-h-full h-full object-cover object-center scale-105"
-                priority
-            />
-
-            {/* Overlay: glassmorphism + gradiente azul corporativo */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-blue-900/70 via-blue-800/40 to-white/80 backdrop-blur-[2px]" />
-
-            {/* Detalle decorativo: blob azul */}
-            <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl z-10" />
-
+        <section className="relative w-full min-h-fit overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl border border-blue-900/10 px-2 sm:px-4 md:px-10">
+            <div className="absolute inset-0 w-full h-full">
+                <Image
+                    src="/maxus1.jpg"
+                    alt="maxusimage"
+                    fill
+                    className="object-cover object-center w-full h-full scale-105"
+                    priority
+                />
+                {/* Overlay: glassmorphism + gradiente azul corporativo */}
+                <div className="pointer-events-none absolute inset-0 w-full h-full bg-gradient-to-b from-blue-900/50 via-blue-800/40 to-white/50 backdrop-blur-[2px]" />
+                {/* Detalle decorativo: blob azul */}
+                <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl z-10" />
+            </div>
             {/* Contenido */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center px-2 sm:px-4 md:px-10 pt-20 pb-6 sm:pb-10 md:pb-14 z-20">
+            <div className="relative flex flex-col items-center justify-center w-full pt-20 pb-6 sm:pb-10 md:pb-14 z-20">
                 {/* Logo grande solo en desktop */}
                 <div className="mb-4 sm:mb-6 md:mb-8 hidden md:block">
                     <Image src="/logoBlack2.png" alt="logoblck" width={360} height={360} className="h-auto w-[220px] md:w-[320px] mx-auto" />
                 </div>
 
                 {/* Card Sobre Nosotros */}
-                <div className="w-full max-w-full md:max-w-3xl rounded-2xl md:rounded-3xl border border-blue-900/20 bg-white/80 backdrop-blur-xl shadow-2xl p-3 sm:p-6 md:p-12 mb-4 flex flex-col items-center min-h-[220px] sm:min-h-[300px] md:min-h-[500px] px-2 sm:px-6 md:px-12">
+                <div className="w-full max-w-2xl md:max-w-3xl rounded-2xl md:rounded-3xl border border-blue-900/20 bg-white/80 backdrop-blur-xl shadow-2xl p-3 sm:p-6 md:p-12 mb-4 flex flex-col items-center min-h-[220px] sm:min-h-[300px] md:min-h-[500px]">
                     <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-center mb-3">
                         <span className="bg-gradient-to-r from-blue-900 via-blue-700 to-cyan-400 bg-clip-text text-transparent drop-shadow-xl">Sobre Nosotros</span>
                     </h2>
