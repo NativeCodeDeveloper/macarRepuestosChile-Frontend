@@ -214,31 +214,31 @@ export default function Portada() {
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <Layers className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                          Cobertura nacional: despacho seguro y rápido a todo Chile
+                                        Cobertura nacional: despacho seguro y rápido a todo Chile
                                         </span>
                                     </MotionCardContent>
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <LucideComponent className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                          Mantenciones integrales para vehículos Maxus
+                                        Mantenciones integrales para vehículos Maxus
                                         </span>
                                     </MotionCardContent>
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <LayoutPanelTop className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                          Repuestos originales: calidad y compatibilidad garantizadas
+                                        Repuestos originales: calidad y compatibilidad garantizadas
                                         </span>
                                     </MotionCardContent>
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <Scroll className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                          Entrega eficiente y soporte postventa profesional
+                                        Entrega eficiente y soporte postventa profesional
                                         </span>
                                     </MotionCardContent>
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <Package className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                          Stock permanente y atención personalizada
+                                        Stock permanente y atención personalizada
                                         </span>
                                     </MotionCardContent>
                                 </MotionCards>
