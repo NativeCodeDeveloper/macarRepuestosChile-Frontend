@@ -73,32 +73,33 @@ export default function Portada() {
 
 
     return (
-        <div className="relative w-full min-h-screen bg-gradient-to-br from-blue-50/30 via-transparent to-blue-100/30 overflow-hidden">
+        <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-blue-50/30 via-transparent to-blue-100/30">
 
-            {/* ========== IMAGEN DE FONDO VISIBLE ========== */}
-            {/* Contenedor posicionado para que Next/Image con `fill` funcione correctamente. */}
-            {/* Usamos z-0 aquí y z-10 en el contenido para evitar dependencias de clases Tailwind negativas como `-z-10`. */}
-            <div className="absolute inset-0 z-0 w-full h-screen md:h-[85vh]" aria-hidden="true">
-                {/* Imagen para celulares */}
+            {/* Fondo */}
+            <div className="absolute inset-0 z-0" aria-hidden="true">
+                {/* Mobile */}
                 <Image
                     src="/maxuscel.png"
                     alt="Fondo Maxus Mobile"
                     fill
                     priority
-                    className="object-cover object-center w-full h-full opacity-90 block md:hidden"
+                    sizes="100vw"
+                    className="object-cover object-center opacity-90 md:hidden"
                 />
-                {/* Imagen para desktop/tablet */}
+                {/* Desktop/Tablet */}
                 <Image
                     src={maxusBg}
                     alt="Fondo Maxus"
                     fill
                     priority
-                    className="object-cover object-center w-full h-full opacity-90 hidden md:block"
+                    sizes="100vw"
+                    className="hidden object-cover object-center opacity-90 md:block"
                 />
             </div>
             {/* ========== OVERLAY SUTIL ========== */}
             {/* Gradiente muy sutil solo para legibilidad sin opacar */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-blue-900/20" />
+            <div className="absolute inset-0 z-10 bg-black/45" />
+
 
             {/* ========== ELEMENTOS DECORATIVOS SUTILES ========== */}
             {/* Blobs muy suaves que no compiten con la imagen */}
@@ -116,8 +117,8 @@ export default function Portada() {
                         className="relative flex flex-col gap-3 sm:gap-4"
                     >
                         {/* Logo desktop: oculto en móvil, block en md+ */}
-                            <Image
-                                className="relative rounded-xl hidden md:block md:ml-50 mx-24 lg:ml-32"
+                        <Image
+                            className="relative rounded-xl hidden md:block md:ml-50 mx-24 lg:ml-32"
                             src={"/logoBlack2.png"}
                             alt={"Macar Repuestos"}
                             height={500}
@@ -214,31 +215,31 @@ export default function Portada() {
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <Layers className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                        Cobertura nacional: despacho seguro y rápido a todo Chile
+                                            Cobertura nacional: despacho seguro y rápido a todo Chile
                                         </span>
                                     </MotionCardContent>
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <LucideComponent className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                        Mantenciones integrales para vehículos Maxus
+                                            Mantenciones integrales para vehículos Maxus
                                         </span>
                                     </MotionCardContent>
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <LayoutPanelTop className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                        Repuestos originales: calidad y compatibilidad garantizadas
+                                            Repuestos originales: calidad y compatibilidad garantizadas
                                         </span>
                                     </MotionCardContent>
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <Scroll className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                        Entrega eficiente y soporte postventa profesional
+                                            Entrega eficiente y soporte postventa profesional
                                         </span>
                                     </MotionCardContent>
                                     <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
                                         <Package className="w-6 h-6 flex-shrink-0" />
                                         <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                        Stock permanente y atención personalizada
+                                            Stock permanente y atención personalizada
                                         </span>
                                     </MotionCardContent>
                                 </MotionCards>
