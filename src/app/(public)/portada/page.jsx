@@ -1,324 +1,364 @@
-"use client"
-import 'bootstrap/dist/css/bootstrap.min.css';
+"use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { MoveRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
-import maxusBg from "../../../../public/maxusportada02.webp";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Outfit } from "next/font/google";
-import MotionCards, { MotionCardContent } from "@/components/ui/motioncards";
-import { Layers, Component as LucideComponent, LayoutPanelTop, Package, Scroll } from "lucide-react";
-import { AnimatedTextGenerate } from "@/components/ui/animated-textgenerate";
+import { Button } from "@/components/ui/button";
+import { Layers, LayoutPanelTop, Package, Scroll } from "lucide-react";
 
 const outfit = Outfit({
-    subsets: ["latin"],
-    weight: ["900"]
+  subsets: ["latin"],
+  weight: ["900"],
 });
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 18 },
+  show: { opacity: 1, y: 0 },
+};
+
 export default function Portada() {
-
-    const [titleNumber, setTitleNumber] = useState(0);
-
-    // Convertimos los títulos a objetos para poder asignar color permanente a cada uno
-    const titles = useMemo(
-        () => [
-            {
-                text: "Especialistas Maxus",
-                gradient: "bg-gradient-to-r from-blue-400 via-blue-700 to-cyan-400",
-                shadow: "shadow-blue-900/90",
-                glow: "drop-shadow-[0_0_16px_rgba(59,130,246,0.45)]",
-            },
-            {
-                text: "Repuestos Originales",
-                gradient: "bg-gradient-to-r from-blue-200 via-cyan-400 to-blue-600",
-                shadow: "shadow-cyan-500/80",
-                glow: "drop-shadow-[0_0_16px_rgba(59,130,246,0.45)]",
-            },
-            {
-                text: "Máxima Calidad",
-                gradient: "bg-gradient-to-r from-blue-200 via-blue-400 to-blue-600",
-                shadow: "shadow-blue-500/90",
-                glow: "drop-shadow-[0_0_16px_rgba(59,130,246,0.35)]",
-            },
-            {
-                text: "Garantía de calidad",
-                gradient: "bg-gradient-to-r from-blue-200 via-blue-600 to-cyan-400",
-                shadow: "shadow-cyan-400/80",
-                glow: "drop-shadow-[0_0_16px_rgba(34,211,238,0.45)]",
-            },
-            {
-                text: "Repuestos Certificados",
-                gradient: "bg-gradient-to-r from-blue-500 via-blue-800 to-cyan-400",
-                shadow: "shadow-blue-900/90",
-                glow: "drop-shadow-[0_0_16px_rgba(59,130,246,0.45)]",
-            },
-        ],
-        []
-    );
-
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            if (titleNumber === titles.length - 1) {
-                setTitleNumber(0);
-            } else {
-                setTitleNumber(titleNumber + 1);
-            }
-        }, 2000);
-        return () => clearTimeout(timeoutId);
-    }, [titleNumber, titles]);
-
-
-    return (
-        <div className="relative w-full min-h-screen overflow-hidden bg-gradient-to-br from-blue-50/30 via-transparent to-blue-100/30">
-
-            {/* Fondo */}
-            <div className="absolute inset-0 z-0" aria-hidden="true">
-                {/* Mobile */}
+  return (
+<div>
+    <div className='block md:hidden'>
+        <div
+            className={`relative h-[100svh] w-full overflow-hidden ${outfit.className} bg-black`}
+        >
+            {/* Background image */}
+            <div className="absolute inset-0">
                 <Image
                     src="/maxuscel.png"
-                    alt="Fondo Maxus Mobile"
+                    alt="Macar Repuestos - Fondo"
                     fill
                     priority
                     sizes="100vw"
-                    className="object-cover object-center opacity-90 md:hidden"
+                    className="object-cover object-center opacity-70"
                 />
-                {/* Desktop/Tablet */}
-                <Image
-                    src={maxusBg}
-                    alt="Fondo Maxus"
-                    fill
-                    priority
-                    sizes="100vw"
-                    className="hidden object-cover object-center opacity-90 md:block"
-                />
+                {/* Premium overlays */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(34,211,238,0.28),transparent_45%),radial-gradient(circle_at_85%_70%,rgba(99,102,241,0.30),transparent_50%)]" />
             </div>
-            {/* ========== OVERLAY SUTIL ========== */}
-            {/* Gradiente muy sutil solo para legibilidad sin opacar */}
-            <div className="absolute inset-0 z-10 bg-black/45" />
 
+            {/* Decorative blobs */}
+            <div className="pointer-events-none absolute -top-28 -right-28 h-[520px] w-[520px] rounded-full bg-white/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-32 -left-32 h-[560px] w-[560px] rounded-full bg-white/10 blur-3xl" />
 
-            {/* ========== ELEMENTOS DECORATIVOS SUTILES ========== */}
-            {/* Blobs muy suaves que no compiten con la imagen */}
-            <div className="absolute top-20 right-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
-
-            {/* ========== LOGO COMPACTO PREMIUM ========== */}
-            {/* Logo más pequeño en móvil para no competir con el contenido */}
-            <div className="absolute top-0 left-6 right-6 sm:top-2 lg:top-4 z-20">
-                <div className="flex w-full justify-center md:justify-start md:ml-40 lg:ml-32">
+            {/* Content */}
+            <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-4 py-10 sm:px-6 sm:py-12 lg:px-10">
+                <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+                    {/* Left: Brand + hero */}
                     <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="relative flex flex-col gap-3 sm:gap-4"
+                        initial="hidden"
+                        animate="show"
+                        variants={{
+                            hidden: {},
+                            show: { transition: { staggerChildren: 0.08 } },
+                        }}
+                        className="lg:col-span-7"
                     >
-                        {/* Logo desktop: oculto en móvil, block en md+ */}
-                        <Image
-                            className="relative rounded-xl hidden md:block md:ml-50 mx-24 lg:ml-32"
-                            src={"/logoBlack2.png"}
-                            alt={"Macar Repuestos"}
-                            height={500}
-                            width={500}
-                            priority
-                        />
-
-                        {/*LOGO EN CELULARES*/}
-                        <Image
-                            className="relative rounded-xl md:hidden"
-                            src={"/logoBlack2.png"}
-                            alt={"Macar Repuestos"}
-                            height={350}
-                            width={280}
-                            priority
-                        />
-
-                        {/* TEXTO ANIMADO BAJO EL LOGO EN COMPUTADORES */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                            className="hidden md:flex w-full justify-center items-center mt-12 mb-8"
-                        >
-                            <div className="w-full flex justify-center items-center">
-                                <div className="relative h-24 sm:h-28 md:h-32 lg:h-36 flex items-center justify-center py-8 px-8 min-w-[260px] sm:min-w-[340px] md:min-w-[420px] max-w-2xl mx-auto">
-                                    <div className={`absolute inset-0 rounded-3xl shadow-xl ${titles[titleNumber].gradient} opacity-95 blur-[1px]`} style={{ zIndex: 1 }} />
-                                    <div className="relative z-10 flex items-center justify-center w-full h-full">
-                                        <AnimatedTextGenerate
-                                            className={`text-center mb-8 p-4`}
-                                            textClassName={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center font-black whitespace-nowrap drop-shadow-xl ${titles[titleNumber].shadow} ${titles[titleNumber].glow} text-white`}
-                                            text={titles[titleNumber].text}
-                                            blurEffect
-                                            speed={1}
-                                        />
-                                    </div>
-                                    {/* Espacio extra para separar el título del listado */}
-                                    <div className="w-full" style={{ height: '48px' }} />
-                                </div>
+                        {/* Top bar */}
+                        <motion.div variants={fadeUp} className="flex items-center gap-3">
+                            <div className="relative">
+                                <Image
+                                    src="/logoBlack2.png"
+                                    alt="Macar Repuestos"
+                                    width={620}
+                                    height={440}
+                                    priority
+                                    className="h-auto w-[240px] sm:w-[320px] lg:w-[420px] drop-shadow-[0_25px_60px_rgba(0,0,0,0.85)]"
+                                />
+                            </div>
+                            <div className="hidden sm:flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-white/90 backdrop-blur-md">
+                                <span className="inline-block h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(34,211,238,0.9)]" />
+                                Repuestos Maxus • Envíos a todo Chile
                             </div>
                         </motion.div>
+
+                        {/* Title */}
+                        <motion.h1
+                            variants={fadeUp}
+                            className="mt-6 text-balance text-4xl font-extrabold tracking-tight text-white drop-shadow-[0_20px_40px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-6xl"
+                        >
+                            Repuestos Maxus
+                            <span className="bg-gradient-to-r from-cyan-200 via-white to-indigo-200 bg-clip-text text-transparent">
+                {" "}originales
+              </span>
+                            {" "}con despacho rápido
+                        </motion.h1>
+
+                        {/* Subtitle */}
+                        <motion.p
+                            variants={fadeUp}
+                            className="mt-4 max-w-2xl text-pretty text-base font-semibold leading-relaxed text-white/85 sm:text-lg"
+                        >
+                            Compra seguro con asesoría experta. Stock permanente, compatibilidad garantizada y atención
+                            personalizada para tu vehículo.
+                        </motion.p>
+
+                        {/* CTAs */}
+                        <motion.div
+                            variants={fadeUp}
+                            className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
+                        >
+                            <Link href="/catalogo" className="w-full sm:w-auto">
+                                <Button
+                                    size="lg"
+                                    className="w-full gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 px-7 py-6 text-base font-extrabold text-white shadow-[0_18px_50px_rgba(0,0,0,0.45)] transition-all duration-300 hover:from-cyan-400 hover:to-indigo-500 hover:shadow-[0_22px_60px_rgba(0,0,0,0.55)] sm:w-auto"
+                                >
+                                    Ver catálogo
+                                    <span className="text-white/90">→</span>
+                                </Button>
+                            </Link>
+
+                            <a href="https://wa.me/56995043704" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+                                <Button
+                                    variant="outline"
+                                    size="lg"
+                                    className="w-full gap-2 rounded-2xl border border-white/25 bg-white/5 px-7 py-6 text-base font-extrabold text-white/90 backdrop-blur-md transition-all duration-300 hover:bg-white/10 sm:w-auto"
+                                >
+                                    Cotizar por WhatsApp
+                                </Button>
+                            </a>
+                        </motion.div>
+
+                        {/* Trust line */}
+                        <motion.div
+                            variants={fadeUp}
+                            className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-semibold text-white/75"
+                        >
+              <span className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                Originales y compatibles
+              </span>
+                            <span className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-200" />
+                Soporte técnico
+              </span>
+                            <span className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-200" />
+                Despacho nacional
+              </span>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Right: Feature cards */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.55, ease: "easeOut", delay: 0.15 }}
+                        className="hidden sm:block lg:col-span-5"
+                    >
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <FeatureCard
+                                icon={<Layers className="h-6 w-6 text-cyan-200" />}
+                                title="Cobertura nacional"
+                                desc="Despacho seguro y seguimiento."
+                            />
+                            <FeatureCard
+                                icon={<LayoutPanelTop className="h-6 w-6 text-indigo-200" />}
+                                title="Compatibilidad"
+                                desc="Te ayudamos a elegir la pieza correcta."
+                            />
+                            <FeatureCard
+                                icon={<Scroll className="h-6 w-6 text-cyan-200" />}
+                                title="Soporte profesional"
+                                desc="Asesoría técnica y postventa."
+                            />
+                            <FeatureCard
+                                icon={<Package className="h-6 w-6 text-indigo-200" />}
+                                title="Stock permanente"
+                                desc="Rotación constante y atención rápida."
+                            />
+                        </div>
+
+                        {/* Mock preview card */}
+
                     </motion.div>
                 </div>
             </div>
+        </div>
+    </div>
 
 
 
 
-            <motion.div
-                initial={{ opacity: 10, y: 20 }}
-                animate={{ opacity: 10, y: 10 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="block md:hidden text-center mt-40"
-            >
-                <div className="w-full rounded-2xl flex text-center justify-center ">
-                    <div className="relative h-16 sm:h-20 md:h-24 lg:h-28 flex text-center items-center justify-center mt-1 py-4 px-4 min-w-[300px] sm:min-w-[400px] md:min-w-[500px]">
-                        <div className={`absolute inset-0 rounded-2xl shadow-lg ${titles[titleNumber].gradient} opacity-80 blur-[1px]`} style={{ zIndex: 1 }} />
-                        <div className="relative z-10 flex items-center justify-center w-full h-full">
-                            <AnimatedTextGenerate
-                                className={`text-center mb-8 p-4`}
-                                textClassName={`text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center font-black whitespace-nowrap drop-shadow-xl ${titles[titleNumber].shadow} ${titles[titleNumber].glow} text-white`}
-                                text={titles[titleNumber].text}
-                                blurEffect
-                                speed={1}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
 
 
 
-            {/* ========== CONTENEDOR DEL CONTENIDO PRINCIPAL ========== */}
-            <div className="container mx-auto relative z-10 px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-center lg:justify-end min-h-screen py-20 sm:py-24 lg:py-32">
-                    {/* Content - Responsive - Distribuido verticalmente a lo largo de la pantalla */}
-                    <div className="flex flex-col items-center lg:items-end text-center lg:text-right gap-12 sm:gap-16 lg:gap-20 max-w-3xl w-full px-2 sm:px-4">
+    <div className='hidden md:block'>
+        <div
+            className={`relative h-[100svh] w-full overflow-hidden ${outfit.className} bg-black`}
+        >
+            {/* Background image */}
+            <div className="absolute inset-0">
+                <Image
+                    src="/maxuscel.png"
+                    alt="Macar Repuestos - Fondo"
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover object-center opacity-70"
+                />
+                {/* Premium overlays */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/45 to-black/65" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(34,211,238,0.28),transparent_45%),radial-gradient(circle_at_85%_70%,rgba(99,102,241,0.30),transparent_50%)]" />
+            </div>
 
-                        {/* ========== BADGE PREMIUM GLASSMORPHISM ========== */}
+            {/* Decorative blobs */}
+            <div className="pointer-events-none absolute -top-28 -right-28 h-[520px] w-[520px] rounded-full bg-white/10 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-32 -left-32 h-[560px] w-[560px] rounded-full bg-white/10 blur-3xl" />
 
-                        {/* ========== TÍTULO PREMIUM CON FONDO SUTIL ========== */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.4 }}
-                            className="flex flex-col gap-6 sm:gap-8 lg:gap-10"
-                        >
-                            {/* Lista premium estilo startup con tarjetas separadas */}
-
-
-                            {/* Lista profesional animada de beneficios (MotionCards) */}
-                            <div className="hidden md:flex flex-col items-end justify-end self-end w-full pt-4 text-right" style={{ zIndex: 10 }}>
-                                <MotionCards interval={120} className="w-full items-end text-right max-w-md">
-                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
-                                        <Layers className="w-6 h-6 flex-shrink-0" />
-                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                            Cobertura nacional: despacho seguro y rápido a todo Chile
-                                        </span>
-                                    </MotionCardContent>
-                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
-                                        <LucideComponent className="w-6 h-6 flex-shrink-0" />
-                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                            Mantenciones integrales para vehículos Maxus
-                                        </span>
-                                    </MotionCardContent>
-                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
-                                        <LayoutPanelTop className="w-6 h-6 flex-shrink-0" />
-                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                            Repuestos originales: calidad y compatibilidad garantizadas
-                                        </span>
-                                    </MotionCardContent>
-                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
-                                        <Scroll className="w-6 h-6 flex-shrink-0" />
-                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                            Entrega eficiente y soporte postventa profesional
-                                        </span>
-                                    </MotionCardContent>
-                                    <MotionCardContent className="flex items-center gap-3 w-full min-h-[72px] px-4">
-                                        <Package className="w-6 h-6 flex-shrink-0" />
-                                        <span className="font-semibold text-base w-full text-left whitespace-normal">
-                                            Stock permanente y atención personalizada
-                                        </span>
-                                    </MotionCardContent>
-                                </MotionCards>
+            {/* Content */}
+            <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-4 py-10 sm:px-6 sm:py-12 lg:px-10">
+                <div className="grid w-full grid-cols-1 items-center gap-8 lg:grid-cols-12 lg:gap-12">
+                    {/* Left: Brand + hero */}
+                    <motion.div
+                        initial="hidden"
+                        animate="show"
+                        variants={{
+                            hidden: {},
+                            show: { transition: { staggerChildren: 0.08 } },
+                        }}
+                        className="lg:col-span-7"
+                    >
+                        {/* Top bar */}
+                        <motion.div variants={fadeUp} className="flex items-center gap-3">
+                            <div className="relative">
+                                <Image
+                                    src="/logoBlack2.png"
+                                    alt="Macar Repuestos"
+                                    width={520}
+                                    height={240}
+                                    priority
+                                    className="h-auto w-[240px] sm:w-[320px] lg:w-[420px] drop-shadow-[0_25px_60px_rgba(0,0,0,0.85)]"
+                                />
                             </div>
-
-                            {/* ========== SUBTÍTULO ANIMADO PREMIUM ========== */}
-
+                            <div className="hidden sm:flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-white/90 backdrop-blur-md">
+                                <span className="inline-block h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(34,211,238,0.9)]" />
+                                Repuestos Maxus • Envíos a todo Chile
+                            </div>
                         </motion.div>
 
-                        {/* ========== BOTONES DE ACCIÓN (CTA) ========== */}
-                        {/* Animación: entra desde abajo */}
-
-                        <div className="hidden md:block">
-                            <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.6 }}
-                                className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto mt-4 "
-                            >
-                                {/* BOTÓN PRIMARIO AZUL - Más pequeño en móvil */}
-                                <Link href={"/catalogo"}>
-                                    <Button
-                                        size="lg"
-                                        className="gap-2 bg-gradient-to-r rounded-2xl from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-full sm:w-auto"
-                                    >
-                                        Ver Catálogo
-                                        <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                                    </Button>
-                                </Link>
-
-                                {/* BOTÓN SECUNDARIO (OUTLINE) - Más pequeño en móvil */}
-                                <Link href={"/formularioContacto"}>
-                                    <Button
-                                        size="lg"
-                                        variant="outline"
-                                        className="gap-2 border-2 border-blue-300 hover:border-blue-500 hover:bg-blue-50 text-blue-900 transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-full sm:w-auto"
-                                    >
-                                        <EnvelopeIcon className="w-5 h-5" />
-                                        Contáctanos
-                                    </Button>
-                                </Link>
-                            </motion.div>
-                        </div>
-
-
-
-
-
-
-                        {/*BOTONES  EN MOVILES RESPONSIVOS HECHOS POR NICOLAS*/}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6, delay: 0.6 }}
-                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto md:hidden -mt-100 ml-6"
+                        {/* Title */}
+                        <motion.h1
+                            variants={fadeUp}
+                            className="mt-6 text-balance text-4xl font-extrabold tracking-tight text-white drop-shadow-[0_20px_40px_rgba(0,0,0,0.55)] sm:text-5xl lg:text-6xl"
                         >
+                            Repuestos Maxus
+                            <span className="bg-gradient-to-r from-cyan-200 via-white to-indigo-200 bg-clip-text text-transparent">
+                {" "}originales
+              </span>
+                            {" "}con despacho rápido
+                        </motion.h1>
 
-                            <div className="w-full gap-3 mt-14 flex flex-col sm:flex-row md:hidden">
+                        {/* Subtitle */}
+                        <motion.p
+                            variants={fadeUp}
+                            className="mt-4 max-w-2xl text-pretty text-base font-semibold leading-relaxed text-white/85 sm:text-lg"
+                        >
+                            Compra seguro con asesoría experta. Stock permanente, compatibilidad garantizada y atención
+                            personalizada para tu vehículo.
+                        </motion.p>
 
-                                <Link href={"/catalogo"}>
-                                    <Button size="lg" className="gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base lg:text-lg px-4 py-2 sm:px-6 sm:py-3 lg:px-8 lg:py-4 w-50">
-                                        Ver Catálogo <MoveRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                                    </Button>
-                                </Link>
-                            </div>
+                        {/* CTAs */}
+                        <motion.div
+                            variants={fadeUp}
+                            className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center"
+                        >
+                            <Link href="/catalogo" className="w-full sm:w-auto">
+                                <Button
+                                    size="lg"
+                                    className="w-full gap-2 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 px-7 py-6 text-base font-extrabold text-white shadow-[0_18px_50px_rgba(0,0,0,0.45)] transition-all duration-300 hover:from-cyan-400 hover:to-indigo-500 hover:shadow-[0_22px_60px_rgba(0,0,0,0.55)] sm:w-auto"
+                                >
+                                    Ver catálogo
+                                    <span className="text-white/90">→</span>
+                                </Button>
+                            </Link>
 
-                            <Image
-                                className="mx-auto mt-10 relative rounded-xl block  md:hidden"
-                                src={"/logoMaxusBlack.png"}
-                                alt={"Macar Repuestos"}
-                                height={200}
-                                width={200}
-                                priority
-                            />
+                            <a href="https://wa.me/56995043704" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+                                <Button
+                                    variant="outline"
+                                    size="lg"
+                                    className="w-full gap-2 rounded-2xl border border-white/25 bg-white/5 px-7 py-6 text-base font-extrabold text-white/90 backdrop-blur-md transition-all duration-300 hover:bg-white/10 sm:w-auto"
+                                >
+                                    Cotizar por WhatsApp
+                                </Button>
+                            </a>
                         </motion.div>
 
-                    </div>
+                        {/* Trust line */}
+                        <motion.div
+                            variants={fadeUp}
+                            className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-semibold text-white/75"
+                        >
+              <span className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-300" />
+                Originales y compatibles
+              </span>
+                            <span className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-200" />
+                Soporte técnico
+              </span>
+                            <span className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-200" />
+                Despacho nacional
+              </span>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Right: Feature cards */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 18 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.55, ease: "easeOut", delay: 0.15 }}
+                        className="hidden sm:block lg:col-span-5"
+                    >
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <FeatureCard
+                                icon={<Layers className="h-6 w-6 text-cyan-200" />}
+                                title="Cobertura nacional"
+                                desc="Despacho seguro y seguimiento."
+                            />
+                            <FeatureCard
+                                icon={<LayoutPanelTop className="h-6 w-6 text-indigo-200" />}
+                                title="Compatibilidad"
+                                desc="Te ayudamos a elegir la pieza correcta."
+                            />
+                            <FeatureCard
+                                icon={<Scroll className="h-6 w-6 text-cyan-200" />}
+                                title="Soporte profesional"
+                                desc="Asesoría técnica y postventa."
+                            />
+                            <FeatureCard
+                                icon={<Package className="h-6 w-6 text-indigo-200" />}
+                                title="Stock permanente"
+                                desc="Rotación constante y atención rápida."
+                            />
+                        </div>
+
+                        {/* Mock preview card */}
+
+                    </motion.div>
                 </div>
             </div>
         </div>
-    )
+    </div>
+</div>
+  );
+}
+
+function FeatureCard({ icon, title, desc }) {
+  return (
+    <div className="group rounded-3xl border border-white/12 bg-white/10 p-5 backdrop-blur-md shadow-[0_18px_60px_rgba(0,0,0,0.45)] transition-all duration-300 hover:bg-white/12 hover:shadow-[0_22px_70px_rgba(0,0,0,0.55)]">
+      <div className="flex items-start gap-3">
+        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/12 bg-white/10">
+          {icon}
+        </div>
+        <div>
+          <div className="text-base font-extrabold text-white/90">{title}</div>
+          <div className="mt-1 text-sm font-semibold text-white/70">{desc}</div>
+        </div>
+      </div>
+    </div>
+  );
 }

@@ -452,14 +452,14 @@ function CatalogoInner() {
 
                     {/* Título principal llamativo y subtítulo descriptivo */}
                     <h1 className={`${goldman.className} text-3xl md:text-4xl flex justify-center font-bold`}>CATALOGO DE REPUESTOS</h1>
-                    <p className="mt-2 text-base md:text-2xl text-gray-600 flex justify-center">Encuentra el repuesto Maxus que deseas</p>
+                    <p className=" text-base md:text-2xl text-gray-600 flex justify-center">Encuentra el repuesto Maxus que deseas</p>
 
 
                     {/*BOTON DE BUSQUEDA DE CATALOGO*/}
                     {/*BOTON DE BUSQUEDA DE CATALOGO*/}
 
-<div className="w-full  flex justify-center ">
-    <div className="w-50 flex gap-6 ">
+<div className="w-full  flex justify-center mt-4 ">
+    <div className="w-120 flex gap-6 ">
 
         <InputGroup  className="border-2 border-blue-600 hover:border-sky-600">
             <InputGroupInput
