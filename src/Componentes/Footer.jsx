@@ -184,6 +184,29 @@ export default function Footer() {
               </div>
             </div>
 
+            <div className="rounded-2xl border border-gray-200 bg-white px-4 py-4">
+              <h4 className="text-sm font-bold text-gray-900 mb-3">Información Empresarial</h4>
+              <div className="text-sm text-gray-500 flex flex-col gap-2">
+                <p><span className="font-semibold text-gray-700">Empresa:</span> Comercializadora Carrasco Macar Limitada</p>
+                <p><span className="font-semibold text-gray-700">RUT:</span> 77.930.258-K</p>
+                <p className="break-words"><span className="font-semibold text-gray-700">Correo:</span> macar.repuestos.automotriz@gmail.com</p>
+                <p><span className="font-semibold text-gray-700">Banco:</span> BCI</p>
+                <p><span className="font-semibold text-gray-700">Cuenta corriente:</span> 97477648</p>
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white px-4 py-4">
+              <h4 className="text-sm font-bold text-gray-900 mb-3">Link de pago acá</h4>
+              <div className="flex flex-col items-center gap-4">
+                <div className="w-full max-w-[200px] rounded-2xl border border-gray-100 bg-gray-50 p-3">
+                  <Image src="/qr.png" alt="QR de pago" width={220} height={220} className="w-full h-auto rounded-lg" />
+                </div>
+                <div className="w-full max-w-[260px]">
+                  <Image src="/webpay.png" alt="Webpay Plus" width={420} height={140} className="w-full h-auto object-contain" />
+                </div>
+              </div>
+            </div>
+
             {/* Enlaces rápidos - compactos */}
             <div className="flex flex-wrap justify-center gap-3 text-xs">
               <Link href="/catalogo" className="text-gray-600 hover:text-blue-600 px-3 py-1.5 rounded-lg bg-white border border-gray-200">Catálogo</Link>
@@ -193,7 +216,7 @@ export default function Footer() {
           </div>
 
           {/* VERSIÓN DESKTOP - Completa */}
-          <div className="hidden lg:grid grid-cols-1 lg:grid-cols-4 gap-12">
+          <div className="hidden lg:grid grid-cols-2 xl:grid-cols-5 gap-10">
             {/* Columna 1: Info de la empresa */}
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Macar Repuestos</h3>
@@ -287,11 +310,30 @@ export default function Footer() {
               </ul>
             </div>
 
-            {/* Columna 4: Logo Mercado Pago */}
+            {/* Columna 4: Datos empresariales */}
             <div>
-              <h4 className="text-lg font-bold text-gray-900 mb-4">Métodos de Pago</h4>
-              <div className="bg-white rounded-xl border-2 border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
-                <Image src="/mercadopago.png" alt="Mercado Pago" width={200} height={60} className="w-full h-auto" />
+              <h4 className="text-lg font-bold text-gray-900 mb-4">Información Empresarial</h4>
+              <div className="text-sm text-gray-500 flex flex-col gap-3">
+                <p><span className="font-semibold text-gray-700">Empresa:</span><br />Comercializadora Carrasco Macar Limitada</p>
+                <p><span className="font-semibold text-gray-700">RUT:</span> 77.930.258-K</p>
+                <p className="break-words"><span className="font-semibold text-gray-700">Correo:</span><br />macar.repuestos.automotriz@gmail.com</p>
+                <p><span className="font-semibold text-gray-700">Banco:</span> BCI</p>
+                <p><span className="font-semibold text-gray-700">Cuenta corriente:</span> 97477648</p>
+              </div>
+            </div>
+
+            {/* Columna 5: Link de pago */}
+            <div>
+              <h4 className="text-lg font-bold text-gray-900 mb-4">Link de pago acá</h4>
+              <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <div className="flex flex-col items-center gap-5">
+                  <div className="w-full max-w-[200px] rounded-2xl border border-gray-100 bg-gray-50 p-3">
+                    <Image src="/qr.png" alt="QR de pago" width={220} height={220} className="w-full h-auto rounded-lg" />
+                  </div>
+                  <div className="w-full">
+                    <Image src="/webpay.png" alt="Webpay Plus" width={420} height={140} className="w-full h-auto object-contain" />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

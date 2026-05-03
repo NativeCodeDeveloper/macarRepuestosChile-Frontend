@@ -32,7 +32,7 @@ import {
     InputGroupButton,
 } from "@/components/ui/input-group"
 
-import { Search } from "lucide-react"
+import { Search, SlidersHorizontal, Sparkles, Tags } from "lucide-react"
 
 
 export default function Catalogo({ searchParams = {} }) {
@@ -366,157 +366,69 @@ function CatalogoInner() {
 
 
                 <div className="block md:hidden">
-                    <h1 className={`${goldman.className} text-3xl md:text-4xl flex justify-center font-bold`}>CATALOGO DE REPUESTOS</h1>
+                    <header className="relative overflow-hidden rounded-[1.9rem] border border-blue-100/70 bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_100%)] px-4 py-6 shadow-[0_20px_60px_rgba(37,99,235,0.10)]">
+                        <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.16),transparent_70%)]" />
+                        <div className="mx-auto max-w-md text-center">
+                            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-blue-700 shadow-sm">
+                                <Sparkles className="h-3.5 w-3.5" />
+                                Catálogo Maxus
+                            </div>
+                            <h1 className={`${goldman.className} text-[1.85rem] leading-none text-slate-950`}>
+                                CATALOGO DE REPUESTOS
+                            </h1>
+                            <p className="mt-3 text-sm leading-6 text-slate-600">
+                                Búsqueda rápida, filtros precisos y una navegación más clara para encontrar tu repuesto.
+                            </p>
+                        </div>
 
-                    <div className="w-full  flex justify-center ">
-                        <div className="flex gap-6 ">
-
-                            <InputGroup  className="border-2 border-blue-600 hover:border-sky-600">
+                        <div className="relative z-10 mt-6 space-y-3">
+                            <div className="rounded-[1.5rem] border border-slate-200/80 bg-white/95 p-3 shadow-[0_12px_30px_rgba(15,23,42,0.06)]">
+                            <InputGroup className="h-13 rounded-2xl border border-blue-100 bg-white transition-colors focus-within:border-blue-500">
                                 <InputGroupInput
                                     placeholder="Buscar productos..."
                                     value={tituloProducto}
                                     onChange={e => setTituloProducto(e.target.value)}
+                                    className="text-sm"
                                 />
-
                                 <InputGroupAddon align="inline-end">
-                                    <InputGroupButton >
-                                        <Search className="w-8 h-8" />
+                                    <InputGroupButton>
+                                        <Search className="h-5 w-5 text-slate-400" />
                                     </InputGroupButton>
                                 </InputGroupAddon>
                             </InputGroup>
 
-                            <ShadcnButton
-                                nombre={"Buscar "}
-                                className="rounded-2"
-                                funcion={() => buscarSimilitud(tituloProducto)}/>
-                        </div>
+                            <div className="mt-3 grid grid-cols-2 gap-3">
+                                <ShadcnButton
+                                    nombre={"Buscar"}
+                                    className="h-12 rounded-2xl border border-blue-300/30 bg-[linear-gradient(135deg,#1d4ed8_0%,#2563eb_55%,#38bdf8_100%)] text-white shadow-[0_14px_30px_rgba(37,99,235,0.30),inset_0_1px_0_rgba(255,255,255,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_38px_rgba(37,99,235,0.38),inset_0_1px_0_rgba(255,255,255,0.24)]"
+                                    funcion={() => buscarSimilitud(tituloProducto)}
+                                />
+                                <ShadcnButton
+                                    nombre={"Ver todos"}
+                                    className="h-12 rounded-2xl border border-slate-700/80 bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)] text-white shadow-[0_14px_28px_rgba(15,23,42,0.22),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_36px_rgba(15,23,42,0.30),inset_0_1px_0_rgba(255,255,255,0.12)]"
+                                    funcion={() => listarProductos()}
+                                />
+                            </div>
+                            </div>
 
-                    </div>
-                    <br/>
-
-                    <ShadcnButton
-                        nombre={"Ver todos"}
-                        className="rounded-2"
-                        funcion={() => listarProductos()}/>
-                    <br/>
-                    <p className="text-gray-700 text-base font-bold">Filtrar Por:</p>
-
-
-
-                    <Select onValueChange={(value) => filtrarPorCategoria(value)}>
-                        <SelectTrigger className="w-60 md:w-80  ">
-                            <SelectValue  placeholder="Tipo de Repuesto" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {listaCategorias.map(categoria => (
-
-                                <SelectItem key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>{categoria.descripcionCategoria}</SelectItem>
-                            ))}
-
-                        </SelectContent>
-                    </Select>
-
-
-                    <Select onValueChange={(value) =>{
-                        if(value === "menor"){
-                            ordenarMenorPrecio()
-                        }else if(value === "mayor"){
-                            ordenarMayorPrecio()
-                        }else if(value === "reciente"){
-                            listarRecientes()
-                        }else if(value === "antiguo"){
-                            listarProductos()
-                        }
-                    }}>
-                        <SelectTrigger className="w-60 mt-3">
-                            <SelectValue  placeholder="Precios" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="menor">Precio, menor a mayor</SelectItem>
-                            <SelectItem value="mayor">Precio, mayor a menor</SelectItem>
-                            <SelectItem value="reciente">Fecha: reciente a antiguo(a)</SelectItem>
-                            <SelectItem value="antiguo">Fecha: antiguo(a) a reciente</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-
-
-
-                </div>
-
-
-
-
-                {/* Encabezado del catálogo: título, subtítulo, breadcrumb y acciones visuales */}
-                <header className="mb-8 border-2 p-8 rounded-2xl shadow-sm hidden md:block">
-
-                    {/* Título principal llamativo y subtítulo descriptivo */}
-                    <h1 className={`${goldman.className} text-3xl md:text-4xl flex justify-center font-bold`}>CATALOGO DE REPUESTOS</h1>
-                    <p className=" text-base md:text-2xl text-gray-600 flex justify-center">Encuentra el repuesto Maxus que deseas</p>
-
-
-                    {/*BOTON DE BUSQUEDA DE CATALOGO*/}
-                    {/*BOTON DE BUSQUEDA DE CATALOGO*/}
-
-<div className="w-full  flex justify-center mt-4 ">
-    <div className="w-120 flex gap-6 ">
-
-        <InputGroup  className="border-2 border-blue-600 hover:border-sky-600">
-            <InputGroupInput
-                placeholder="Buscar productos..."
-                value={tituloProducto}
-                onChange={e => setTituloProducto(e.target.value)}
-            />
-
-            <InputGroupAddon align="inline-end">
-                <InputGroupButton >
-                    <Search className="w-8 h-8" />
-                </InputGroupButton>
-            </InputGroupAddon>
-        </InputGroup>
-
-        <ShadcnButton
-
-            nombre={"Buscar "}
-            className="rounded-2"
-            funcion={() => buscarSimilitud(tituloProducto)}/>
-
-        <ShadcnButton
-            nombre={"Ver todos"}
-            className="rounded-2"
-            funcion={() => listarProductos()}/>
-
-
-
-
-</div>
-</div>
-
-
-                    <div className="w-full  flex justify-center">
-
-                        <div className="w-50 md:w-150 flex gap-6 mt-10  ">
-
-
-
-
-
-                            {/* DIV CONTROLES DE ORDENAMIENTO: Contenedor alineado a la derecha con el selector de orden de productos */}
-                            <div className="ml-auto flex gap-2">
-
+                            <div className="rounded-[1.5rem] border border-slate-200/80 bg-white/95 p-3 shadow-[0_12px_30px_rgba(15,23,42,0.05)]">
+                                <div className="mb-3 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                                    <SlidersHorizontal className="h-3.5 w-3.5 text-blue-600" />
+                                    Filtros de catálogo
+                                </div>
+                            <div className="grid grid-cols-1 gap-3">
                                 <Select onValueChange={(value) => filtrarPorCategoria(value)}>
-                                    <SelectTrigger className="w-60 md:w-80 font-bold text-gray-900 ">
-                                        <SelectValue  placeholder="Busca por Categoria" />
+                                    <SelectTrigger className="h-12 rounded-2xl border-slate-200 text-left font-semibold text-slate-700 shadow-sm">
+                                        <SelectValue placeholder="Busca por categoría" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {listaCategorias.map(categoria => (
-
-                                            <SelectItem key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>{categoria.descripcionCategoria}</SelectItem>
+                                            <SelectItem key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>
+                                                {categoria.descripcionCategoria}
+                                            </SelectItem>
                                         ))}
                                     </SelectContent>
                                 </Select>
-
-
 
                                 <Select onValueChange={(value) =>{
                                     if(value === "menor"){
@@ -529,8 +441,8 @@ function CatalogoInner() {
                                         listarProductos()
                                     }
                                 }}>
-                                    <SelectTrigger className="w-60 md:w-80 font-bold text-gray-900 ">
-                                        <SelectValue  placeholder="Ordenar por" />
+                                    <SelectTrigger className="h-12 rounded-2xl border-slate-200 text-left font-semibold text-slate-700 shadow-sm">
+                                        <SelectValue placeholder="Ordenar por" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectItem value="menor">Precio, menor a mayor</SelectItem>
@@ -539,34 +451,117 @@ function CatalogoInner() {
                                         <SelectItem value="antiguo">Fecha: antiguo(a) a reciente</SelectItem>
                                     </SelectContent>
                                 </Select>
-
-
                             </div>
-
+                            </div>
                         </div>
+                    </header>
+                </div>
 
+
+
+
+                {/* Encabezado del catálogo: título, subtítulo, breadcrumb y acciones visuales */}
+                <header className="relative mb-8 hidden overflow-hidden rounded-[2.2rem] border border-blue-100/70 bg-[linear-gradient(180deg,#ffffff_0%,#f7fbff_100%)] px-8 py-10 shadow-[0_24px_70px_rgba(37,99,235,0.10)] md:block">
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.16),transparent_72%)]" />
+                    <div className="pointer-events-none absolute right-[-5%] top-10 h-44 w-44 rounded-full bg-blue-100/50 blur-3xl" />
+                    <div className="pointer-events-none absolute left-[-4%] bottom-0 h-40 w-40 rounded-full bg-sky-100/40 blur-3xl" />
+
+                    <div className="relative z-10 mx-auto max-w-5xl text-center">
+                        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.26em] text-blue-700 shadow-sm">
+                            <Sparkles className="h-3.5 w-3.5" />
+                            Catálogo Maxus
+                        </div>
+                        <h1 className={`${goldman.className} text-4xl leading-none text-slate-950 lg:text-[3.45rem]`}>
+                            CATALOGO DE REPUESTOS
+                        </h1>
+                        <p className="mt-4 text-lg text-slate-600 lg:text-[1.55rem]">
+                            Encuentra el repuesto Maxus que deseas
+                        </p>
+                        <div className="mt-5 flex justify-center gap-3">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm">
+                                <Search className="h-3.5 w-3.5 text-blue-600" />
+                                Búsqueda directa
+                            </div>
+                            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-4 py-2 text-xs font-semibold text-slate-600 shadow-sm">
+                                <Tags className="h-3.5 w-3.5 text-blue-600" />
+                                Filtros por categoría
+                            </div>
+                        </div>
                     </div>
 
+                    <div className="relative z-10 mx-auto mt-8 max-w-5xl">
+                        <div className="rounded-[1.8rem] border border-slate-200/80 bg-white/92 p-4 shadow-[0_18px_40px_rgba(15,23,42,0.06)] backdrop-blur-sm">
+                        <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-4">
+                            <InputGroup className="h-14 rounded-2xl border border-blue-100 bg-white shadow-sm transition-colors focus-within:border-blue-500">
+                                <InputGroupInput
+                                    placeholder="Buscar productos..."
+                                    value={tituloProducto}
+                                    onChange={e => setTituloProducto(e.target.value)}
+                                    className="text-base"
+                                />
 
+                                <InputGroupAddon align="inline-end">
+                                    <InputGroupButton>
+                                        <Search className="h-5 w-5 text-slate-400" />
+                                    </InputGroupButton>
+                                </InputGroupAddon>
+                            </InputGroup>
 
+                            <ShadcnButton
+                                nombre={"Buscar"}
+                                className="h-14 rounded-2xl border border-blue-300/30 bg-[linear-gradient(135deg,#1d4ed8_0%,#2563eb_55%,#38bdf8_100%)] px-8 text-white shadow-[0_18px_36px_rgba(37,99,235,0.30),inset_0_1px_0_rgba(255,255,255,0.18)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_44px_rgba(37,99,235,0.38),inset_0_1px_0_rgba(255,255,255,0.24)]"
+                                funcion={() => buscarSimilitud(tituloProducto)}
+                            />
 
+                            <ShadcnButton
+                                nombre={"Ver todos"}
+                                className="h-14 rounded-2xl border border-slate-700/80 bg-[linear-gradient(180deg,#0f172a_0%,#111827_100%)] px-8 text-white shadow-[0_18px_34px_rgba(15,23,42,0.22),inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_42px_rgba(15,23,42,0.30),inset_0_1px_0_rgba(255,255,255,0.12)]"
+                                funcion={() => listarProductos()}
+                            />
+                        </div>
 
-                    {/* DIV BARRA DE ACCIONES: Contenedor flex con wrap que agrupa filtros y controles de ordenamiento */}
-                    <div className="mt-6 flex flex-wrap items-center gap-3">
-                      {/* DIV FILTRO DE CATEGORÍAS: Contenedor que ocupa todo el ancho en móvil y auto en escritorio para los filtros de categoría */}
-                      <div className="flex w-full lg:w-auto">
-                        {/* ACCESIBILIDAD: ETIQUETA OCULTA PARA LECTOR DE PANTALLA */}
-                        <span className="sr-only">Filtrar por categoría</span>
-                        {/* CINTA DE CATEGORÍAS (RESPONSIVA): SCROLL HORIZONTAL EN MÓVIL */}
+                        <div className="mt-5 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+                            <SlidersHorizontal className="h-3.5 w-3.5 text-blue-600" />
+                            Opciones de filtrado
+                        </div>
 
-                      </div>
+                        <div className="mt-4 grid grid-cols-2 gap-4">
+                            <Select onValueChange={(value) => filtrarPorCategoria(value)}>
+                                <SelectTrigger className="h-14 rounded-2xl border-slate-200 font-semibold text-slate-700 shadow-sm">
+                                    <SelectValue placeholder="Busca por categoría" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {listaCategorias.map(categoria => (
+                                        <SelectItem key={categoria.id_categoriaProducto} value={categoria.id_categoriaProducto}>
+                                            {categoria.descripcionCategoria}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
 
-
-
-
-
-
-
+                            <Select onValueChange={(value) =>{
+                                if(value === "menor"){
+                                    ordenarMenorPrecio()
+                                }else if(value === "mayor"){
+                                    ordenarMayorPrecio()
+                                }else if(value === "reciente"){
+                                    listarRecientes()
+                                }else if(value === "antiguo"){
+                                    listarProductos()
+                                }
+                            }}>
+                                <SelectTrigger className="h-14 rounded-2xl border-slate-200 font-semibold text-slate-700 shadow-sm">
+                                    <SelectValue placeholder="Ordenar por" />
+                                </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectItem value="menor">Precio, menor a mayor</SelectItem>
+                                        <SelectItem value="mayor">Precio, mayor a menor</SelectItem>
+                                        <SelectItem value="reciente">Fecha: reciente a antiguo(a)</SelectItem>
+                                        <SelectItem value="antiguo">Fecha: antiguo(a) a reciente</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        </div>
                     </div>
                 </header>
 
