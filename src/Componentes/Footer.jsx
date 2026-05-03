@@ -42,6 +42,11 @@ function Icon({ name, className = "w-6 h-6 text-gray-700" }) {
     home: (
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}><path d="M12 3l9 8h-3v10H6V11H3l9-8z"/></svg>
     ),
+    "map-pin": (
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}>
+        <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+      </svg>
+    ),
     envelope: (
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className}><path d="M4 6h16a2 2 0 0 1 2 2v.2l-10 6.25L2 8.2V8a2 2 0 0 1 2-2zm0 4.3l8 5 8-5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7.7z"/></svg>
     ),
@@ -203,6 +208,16 @@ export default function Footer() {
                   </div>
                   <span className="font-medium">+56 9 9504 3704</span>
                 </a>
+
+
+                  <a href="tel:+56995043704" className="flex items-center gap-3 text-sm text-gray-700 hover:text-blue-600 transition-colors group">
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
+                          <Icon name="map-pin" className="w-5 h-5 text-blue-600" />
+                      </div>
+                      <span className="font-medium">Bodega 48, Sector Industrial, Ñiquén, Región de Ñuble, Chile</span>
+                  </a>
+
+
                 <a href="mailto:macar.repuestos.automotriz@gmail.com" className="flex items-center gap-3 text-sm text-gray-700 hover:text-blue-600 transition-colors group">
                   <div className="w-10 h-10 rounded-xl bg-blue-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
                     <Icon name="envelope" className="w-5 h-5 text-blue-600" />
