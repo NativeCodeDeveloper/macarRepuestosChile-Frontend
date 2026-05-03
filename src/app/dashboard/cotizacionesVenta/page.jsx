@@ -18,6 +18,10 @@ function formatCurrency(value) {
   return `$ ${Number(value || 0).toLocaleString("es-CL")}`;
 }
 
+function calculateNetFromGross(gross) {
+  return Math.round(Number(gross || 0) / 1.19);
+}
+
 function buildQuoteNumber() {
   const now = new Date();
   const year = now.getFullYear();
@@ -42,6 +46,7 @@ export default function CotizacionesVentaPage() {
     observaciones: "",
   });
   const [seleccionados, setSeleccionados] = useState([]);
+  const [descuentoPorcentaje, setDescuentoPorcentaje] = useState(0);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
 
   function cfToSrc(imageId, variant = "card") {
@@ -109,6 +114,14 @@ export default function CotizacionesVentaPage() {
     [seleccionados]
   );
 
+  const descuentoMonto = useMemo(
+    () => Math.round(subtotal * (Number(descuentoPorcentaje || 0) / 100)),
+    [subtotal, descuentoPorcentaje]
+  );
+  const totalConDescuento = useMemo(() => Math.max(0, subtotal - descuentoMonto), [subtotal, descuentoMonto]);
+  const neto = useMemo(() => calculateNetFromGross(totalConDescuento), [totalConDescuento]);
+  const ivaIncluido = useMemo(() => totalConDescuento - neto, [totalConDescuento, neto]);
+
   function handleClienteChange(field, value) {
     setCliente((prev) => ({ ...prev, [field]: value }));
   }
@@ -161,6 +174,7 @@ export default function CotizacionesVentaPage() {
     });
     setSeleccionados([]);
     setSearch("");
+    setDescuentoPorcentaje(0);
     toast.success("Cotización reiniciada.");
   }
 
@@ -204,28 +218,28 @@ export default function CotizacionesVentaPage() {
       const pageWidth = doc.internal.pageSize.getWidth();
       const pageHeight = doc.internal.pageSize.getHeight();
       const margin = 14;
-      const logoDataUrl = await imageUrlToDataUrl("/logoBlack2.png");
+      const logoDataUrl = await imageUrlToDataUrl("/pdfcot.png");
 
-      doc.setFillColor(15, 23, 42);
-      doc.rect(0, 0, pageWidth, 34, "F");
-      doc.setFillColor(37, 99, 235);
-      doc.rect(0, 34, pageWidth, 3, "F");
+      doc.setFillColor(255, 255, 255);
+      doc.rect(0, 0, pageWidth, pageHeight, "F");
+      doc.setDrawColor(226, 232, 240);
+      doc.line(margin, 34, pageWidth - margin, 34);
 
-      doc.addImage(logoDataUrl, "PNG", margin, 8, 56, 18);
+      doc.addImage(logoDataUrl, "PNG", margin, 8, 68, 30);
 
-      doc.setTextColor(255, 255, 255);
+      doc.setTextColor(15, 23, 42);
       doc.setFont("helvetica", "bold");
       doc.setFontSize(18);
-      doc.text("Cotizacion Comercial", pageWidth - margin, 15, { align: "right" });
+      doc.text("Cotizacion Comercial", pageWidth - margin, 16, { align: "right" });
 
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
-      doc.text(`N° ${quoteNumber}`, pageWidth - margin, 22, { align: "right" });
-      doc.text(`${new Date().toLocaleDateString("es-CL")}`, pageWidth - margin, 27, {
+      doc.text(`N° ${quoteNumber}`, pageWidth - margin, 23, { align: "right" });
+      doc.text(`${new Date().toLocaleDateString("es-CL")}`, pageWidth - margin, 28, {
         align: "right",
       });
 
-      let cursorY = 47;
+      let cursorY = 44;
 
       doc.setTextColor(15, 23, 42);
       doc.setFont("helvetica", "bold");
@@ -265,6 +279,26 @@ export default function CotizacionesVentaPage() {
         cursorY += observacionesHeight + 8;
       }
 
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text("Datos de transferencia", margin, cursorY);
+      cursorY += 5;
+
+      doc.setDrawColor(226, 232, 240);
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(margin, cursorY - 1, pageWidth - margin * 2, 34, 4, 4, "FD");
+
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(100, 116, 139);
+      doc.setFontSize(8.5);
+      doc.text("Empresa: Comercializadora Carrasco Macar Limitada", margin + 4, cursorY + 5);
+      doc.text("RUT: 77.930.258-K", margin + 4, cursorY + 10.5);
+      doc.text("Correo: macar.repuestos.automotriz@gmail.com", margin + 4, cursorY + 16);
+      doc.text("Banco: BCI", margin + 4, cursorY + 21.5);
+      doc.text("Cuenta corriente: 97477648", margin + 4, cursorY + 27);
+
+      cursorY += 40;
+
       autoTable(doc, {
         startY: cursorY,
         margin: { left: margin, right: margin },
@@ -276,11 +310,13 @@ export default function CotizacionesVentaPage() {
           formatCurrency(item.valorProducto * item.cantidad),
         ]),
         styles: {
-          fontSize: 9,
-          cellPadding: 3.5,
+          fontSize: 8.5,
+          cellPadding: 3,
           textColor: [51, 65, 85],
           lineColor: [226, 232, 240],
           lineWidth: 0.2,
+          overflow: "linebreak",
+          valign: "middle",
         },
         headStyles: {
           fillColor: [37, 99, 235],
@@ -293,28 +329,43 @@ export default function CotizacionesVentaPage() {
         bodyStyles: {
           valign: "middle",
         },
+        columnStyles: {
+          0: { cellWidth: 116, halign: "left" },
+          1: { cellWidth: 20, halign: "center" },
+          2: { cellWidth: 28, halign: "right" },
+          3: { cellWidth: 28, halign: "right" },
+        },
       });
 
       const finalY = doc.lastAutoTable.finalY + 8;
 
-      doc.setFillColor(15, 23, 42);
-      doc.roundedRect(pageWidth - 78, finalY, 64, 26, 4, 4, "F");
-      doc.setTextColor(255, 255, 255);
+      doc.setDrawColor(226, 232, 240);
+      doc.setFillColor(248, 250, 252);
+      doc.roundedRect(pageWidth - 88, finalY, 74, 50, 4, 4, "FD");
+      doc.setTextColor(51, 65, 85);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(9);
-      doc.text("Total de unidades", pageWidth - 70, finalY + 8);
+      doc.text("Total de unidades", pageWidth - 80, finalY + 8);
       doc.text(String(totalItems), pageWidth - 20, finalY + 8, { align: "right" });
+      doc.text("Subtotal lista", pageWidth - 80, finalY + 16);
+      doc.text(formatCurrency(subtotal), pageWidth - 20, finalY + 16, { align: "right" });
+      doc.text(`Descuento (${Number(descuentoPorcentaje || 0)}%)`, pageWidth - 80, finalY + 24);
+      doc.text(`- ${formatCurrency(descuentoMonto)}`, pageWidth - 20, finalY + 24, { align: "right" });
+      doc.text("Neto referencial", pageWidth - 80, finalY + 32);
+      doc.text(formatCurrency(neto), pageWidth - 20, finalY + 32, { align: "right" });
+      doc.text("IVA incluido (19%)", pageWidth - 80, finalY + 40);
+      doc.text(formatCurrency(ivaIncluido), pageWidth - 20, finalY + 40, { align: "right" });
 
       doc.setFont("helvetica", "bold");
-      doc.setFontSize(14);
-      doc.text("Subtotal cotizado", pageWidth - 70, finalY + 18);
-      doc.text(formatCurrency(subtotal), pageWidth - 20, finalY + 18, { align: "right" });
+      doc.setFontSize(13);
+      doc.text("Total", pageWidth - 80, finalY + 46);
+      doc.text(formatCurrency(totalConDescuento), pageWidth - 20, finalY + 46, { align: "right" });
 
       doc.setTextColor(100, 116, 139);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(8.5);
       doc.text(
-        "Documento generado desde el panel de cotizaciones de Macar Repuestos.",
+        "Valores expresados en pesos chilenos. El total ya incluye IVA; no se agrega nuevamente.",
         margin,
         pageHeight - 10
       );
@@ -344,31 +395,15 @@ export default function CotizacionesVentaPage() {
                 Generador de cotizaciones
               </div>
 
-              <div className="mt-6">
-                <Image
-                  src="/logoBlack2.png"
-                  alt="Macar Repuestos"
-                  width={620}
-                  height={300}
-                  priority
-                  className="h-auto w-[220px] sm:w-[300px] lg:w-[360px]"
-                />
-              </div>
-
               <h1 className="mt-6 text-3xl font-black tracking-[-0.04em] text-white sm:text-4xl lg:text-5xl">
-                Cotizaciones ejecutivas
+                Cotizador de Productos
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-7 text-white/78 sm:text-base">
-                Crea cotizaciones claras para clientes, selecciona productos desde el catálogo y
-                deja una presentación profesional alineada con la imagen comercial de Macar
-                Repuestos.
-              </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3 xl:min-w-[440px]">
+            <div className="grid gap-3 sm:grid-cols-3 xl:min-w-[360px]">
               <StatCard label="Cotización" value={quoteNumber} />
               <StatCard label="Productos" value={String(totalItems)} />
-              <StatCard label="Subtotal" value={formatCurrency(subtotal)} />
+              <StatCard label="Total c/IVA" value={formatCurrency(totalConDescuento)} />
             </div>
           </div>
         </header>
@@ -411,6 +446,23 @@ export default function CotizacionesVentaPage() {
                     onChange={(value) => handleClienteChange("correo", value)}
                     placeholder="cliente@empresa.cl"
                     type="email"
+                  />
+                </div>
+                <div className="md:col-span-2">
+                  <label className="mb-2 block text-sm font-semibold text-slate-700">
+                    Descuento (%)
+                  </label>
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={descuentoPorcentaje}
+                    onChange={(event) => {
+                      const value = Math.min(100, Math.max(0, Number(event.target.value || 0)));
+                      setDescuentoPorcentaje(value);
+                    }}
+                    placeholder="0"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-800 outline-none transition focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-100"
                   />
                 </div>
                 <div className="md:col-span-2">
@@ -528,11 +580,11 @@ export default function CotizacionesVentaPage() {
               <div className="space-y-6 px-6 py-6">
                 <div className="flex items-start justify-between gap-4">
                   <Image
-                    src="/logoBlack2.png"
+                    src="/pdfcot.png"
                     alt="Macar Repuestos"
                     width={320}
                     height={150}
-                    className="h-auto w-[170px]"
+                    className="h-auto w-[210px]"
                   />
                   <div className="text-right text-xs text-slate-500">
                     <p className="font-semibold text-slate-700">N° {quoteNumber}</p>
@@ -627,10 +679,26 @@ export default function CotizacionesVentaPage() {
                     <span>Total de unidades</span>
                     <span className="font-bold text-slate-900">{totalItems}</span>
                   </div>
-                  <div className="mt-3 flex items-center justify-between text-base">
-                    <span className="font-semibold text-slate-700">Subtotal cotizado</span>
+                  <div className="mt-3 flex items-center justify-between text-sm text-slate-600">
+                    <span>Subtotal lista</span>
+                    <span className="font-bold text-slate-900">{formatCurrency(subtotal)}</span>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between text-sm text-slate-600">
+                    <span>Descuento ({Number(descuentoPorcentaje || 0)}%)</span>
+                    <span className="font-bold text-slate-900">- {formatCurrency(descuentoMonto)}</span>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between text-sm text-slate-600">
+                    <span>Neto referencial</span>
+                    <span className="font-bold text-slate-900">{formatCurrency(neto)}</span>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between text-sm text-slate-600">
+                    <span>IVA incluido (19%)</span>
+                    <span className="font-bold text-slate-900">{formatCurrency(ivaIncluido)}</span>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between text-base">
+                    <span className="font-semibold text-slate-700">Total con IVA incluido</span>
                     <span className="text-2xl font-black tracking-[-0.04em] text-slate-950">
-                      {formatCurrency(subtotal)}
+                      {formatCurrency(totalConDescuento)}
                     </span>
                   </div>
                 </div>
@@ -683,11 +751,13 @@ function Field({ label, value, onChange, placeholder, type = "text" }) {
 
 function StatCard({ label, value }) {
   return (
-    <div className="rounded-[1.4rem] border border-white/12 bg-white/10 px-4 py-4 backdrop-blur-sm">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">
+    <div className="rounded-[1.2rem] border border-white/12 bg-white/10 px-4 py-3 backdrop-blur-sm">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
         {label}
       </div>
-      <div className="mt-2 text-lg font-black tracking-[-0.03em] text-white">{value}</div>
+      <div className="mt-2 break-words text-base font-black tracking-[-0.03em] text-white sm:text-lg">
+        {value}
+      </div>
     </div>
   );
 }

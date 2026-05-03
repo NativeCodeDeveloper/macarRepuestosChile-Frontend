@@ -280,7 +280,7 @@ export default function NavbarDashboard() {
                       }
                   }}
               >
-                  Cotizaciones
+                  Cotizador
               </Button>
 
 

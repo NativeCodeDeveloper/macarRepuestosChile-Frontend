@@ -21,7 +21,6 @@ export const config = {
 
 
 
-
 * */
 
 // TypeScript

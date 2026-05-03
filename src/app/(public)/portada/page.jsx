@@ -49,7 +49,7 @@ export default function Portada() {
         <div className="pointer-events-none absolute left-[-10%] top-[-10%] h-[28rem] w-[28rem] rounded-full bg-blue-300/10 blur-3xl" />
         <div className="pointer-events-none absolute bottom-[-14%] right-[-8%] h-[30rem] w-[30rem] rounded-full bg-blue-400/10 blur-3xl" />
 
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl items-center px-4 py-10 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl items-start px-4 pt-4 pb-10 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8 lg:pb-8">
           <div className="grid w-full items-end gap-10 lg:grid-cols-12">
             <motion.div
               initial="hidden"
@@ -58,7 +58,7 @@ export default function Portada() {
                 hidden: {},
                 show: { transition: { staggerChildren: 0.1 } },
               }}
-              className="px-2 py-4 sm:px-4 lg:col-span-8 lg:px-6 lg:py-6 xl:col-span-7"
+              className="px-2 py-2 sm:px-4 lg:col-span-8 lg:px-6 lg:py-4 xl:col-span-7"
             >
               <motion.div
                 variants={fadeUp}
