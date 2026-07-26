@@ -1,10 +1,8 @@
 "use client"
 
 import {useState, useEffect, Suspense} from 'react';
-import Link from "next/link";
 import { toast } from 'react-hot-toast';
 import {useCarritoGlobal} from "@/ContextosGlobales/CarritoContext";
-import { ShoppingCartIcon } from '@heroicons/react/24/solid';
 import MediaCardImage from "@/Componentes/MediaCardImage";
 import { motion } from "motion/react";
 import {useRouter} from "next/navigation";
@@ -32,7 +30,119 @@ import {
     InputGroupButton,
 } from "@/components/ui/input-group"
 
-import { Search, SlidersHorizontal, Sparkles, Tags } from "lucide-react"
+import { ArrowUpRight, Search, ShoppingCart, SlidersHorizontal, Sparkles, Tags } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
+
+const formatoPrecioCLP = new Intl.NumberFormat("es-CL", {
+    style: "currency",
+    currency: "CLP",
+    maximumFractionDigits: 0,
+});
+
+function ProductCard({ producto, onView, onAdd, onBuy }) {
+    const stockDisponible = Number(producto.cantidadStock) > 0;
+    const tieneInformacionStock = producto.cantidadStock !== null
+        && producto.cantidadStock !== undefined;
+    const esOferta = Number(producto.estadoProducto) === 3;
+
+    return (
+        <Card
+            className="group h-full min-w-0 gap-0 overflow-hidden rounded-[1.35rem] border-border/80 bg-card py-0 shadow-[0_12px_35px_rgba(15,23,42,0.08)] transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_24px_55px_rgba(15,23,42,0.16)]"
+        >
+            <button
+                type="button"
+                onClick={() => onView(producto.id_producto)}
+                className="relative block aspect-square w-full cursor-pointer overflow-hidden bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
+                aria-label={`Ver detalles de ${producto.tituloProducto}`}
+            >
+                <div className="size-full transition-transform duration-500 ease-out group-hover:scale-[1.06]">
+                    <MediaCardImage
+                        imagenProducto={`https://imagedelivery.net/aCBUhLfqUcxA2yhIBn1fNQ/${producto.imagenProducto}/card`}
+                        tituloProducto={producto.tituloProducto}
+                    />
+                </div>
+
+                <div
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/35 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    aria-hidden="true"
+                />
+
+                <Badge className="absolute left-2.5 top-2.5 border-primary/20 bg-background/92 text-[0.62rem] font-bold uppercase tracking-[0.12em] text-primary shadow-sm backdrop-blur-md md:left-3.5 md:top-3.5">
+                    {esOferta ? "Oferta" : "Repuesto Maxus"}
+                </Badge>
+
+                <span className="absolute bottom-3 right-3 hidden translate-y-2 items-center gap-1 rounded-full bg-slate-950/88 px-3 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.08em] text-white opacity-0 shadow-lg backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 md:flex">
+                    Ver ficha
+                    <ArrowUpRight className="size-3.5" aria-hidden="true" />
+                </span>
+            </button>
+
+            <CardHeader className="gap-2 px-3 pb-0 pt-3 md:px-4 md:pt-4">
+                <CardTitle className="line-clamp-2 min-h-10 text-left text-[0.72rem] font-bold leading-5 text-card-foreground md:min-h-12 md:text-sm md:leading-6">
+                    {producto.tituloProducto}
+                </CardTitle>
+            </CardHeader>
+
+            <CardContent className="mt-auto px-3 pb-3 pt-3 md:px-4 md:pb-4">
+                <div className="flex items-end justify-between gap-2">
+                    <div className="min-w-0">
+                        <p className="text-[0.58rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground md:text-[0.65rem]">
+                            Precio
+                        </p>
+                        <p className="mt-0.5 truncate text-base font-black tracking-[-0.03em] text-primary md:text-xl">
+                            {formatoPrecioCLP.format(Number(producto.valorProducto) || 0)}
+                        </p>
+                    </div>
+
+                    <span className="hidden shrink-0 items-center gap-1.5 text-[0.65rem] font-semibold text-muted-foreground xl:flex">
+                        <span
+                            className={`size-1.5 rounded-full ${
+                                tieneInformacionStock && !stockDisponible
+                                    ? "bg-amber-500"
+                                    : "bg-emerald-500"
+                            }`}
+                            aria-hidden="true"
+                        />
+                        {tieneInformacionStock && !stockDisponible
+                            ? "Consultar stock"
+                            : "Disponible"}
+                    </span>
+                </div>
+            </CardContent>
+
+            <CardFooter className="gap-2 border-t border-border bg-muted/45 px-3 py-3 md:px-4">
+                <Button
+                    type="button"
+                    variant="outline"
+                    size="icon-sm"
+                    onClick={() => onAdd(producto)}
+                    aria-label={`Agregar ${producto.tituloProducto} al carrito`}
+                    title="Agregar al carrito"
+                >
+                    <ShoppingCart data-icon="inline-start" aria-hidden="true" />
+                </Button>
+                <Button
+                    type="button"
+                    size="sm"
+                    className="min-w-0 flex-1"
+                    onClick={() => onBuy(producto)}
+                >
+                    <span className="truncate">Comprar</span>
+                    <ArrowUpRight data-icon="inline-end" aria-hidden="true" />
+                </Button>
+            </CardFooter>
+        </Card>
+    );
+}
 
 
 export default function Catalogo({ searchParams = {} }) {
@@ -60,7 +170,6 @@ function CatalogoInner() {
     const [listaCategorias, setListaCategorias] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [tituloProducto, setTituloProducto] = useState("");
-    const [contador, setContador] = useState(0);
 
     // Obtener parámetros de búsqueda
     const id_CategoriaNavBar = searchParams.get("id_categoriaProducto");
@@ -355,14 +464,18 @@ function CatalogoInner() {
 
 
 
-    useEffect(() => {
-        setContador(listaProductos.length)
-    }, [listaProductos]);
+    const contador = listaProductos.length;
 
     return (
         <>
             {/* DIV PRINCIPAL: Contenedor raíz del catálogo con ancho máximo de 7xl, centrado horizontalmente, padding responsivo y fondo blanco */}
-            <div className="mt-15 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
+            <div
+                className="mt-15 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white"
+                style={{
+                    "--primary": "oklch(0.56 0.22 260)",
+                    "--primary-foreground": "oklch(0.99 0 0)",
+                }}
+            >
 
 
                 <div className="block md:hidden">
@@ -567,15 +680,22 @@ function CatalogoInner() {
 
 
 
-                <div className="w-full flex justify-end gap-3">
-
-                    <label>Productos Disponibles :  </label><span>{contador}</span>
+                <div className="flex w-full flex-col items-start justify-between gap-3 sm:flex-row sm:items-center sm:gap-4">
+                    <div className="min-w-0">
+                        <p className="text-xs font-bold uppercase tracking-[0.16em] text-muted-foreground">
+                            Selección de repuestos
+                        </p>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                            Productos disponibles para compra online
+                        </p>
+                    </div>
+                    <Badge className="border-primary/15 bg-primary/10 px-3.5 py-1.5 font-bold text-primary">
+                        {contador} {contador === 1 ? "producto" : "productos"}
+                    </Badge>
                 </div>
 
                 {/* Separador sutil entre encabezado y contenido */}
-
-
-                <hr className="my-6 border-gray-100" />
+                <Separator className="my-6" />
 
 
                 {/* DIV LAYOUT PRINCIPAL: Grid responsivo que divide la página en 1 columna móvil y 5 columnas escritorio (1 sidebar + 4 productos) */}
@@ -719,70 +839,16 @@ function CatalogoInner() {
                         </div>
                     </aside>
 
-                    <section className="
-                    grid
-                    grid-cols-2
-                    sm:grid-cols-2
-                    md:grid-cols-3
-                    lg:grid-cols-4
-                    gap-6
-                    h-full
-
-
-                    col-span-4
-                    ">
-
-                        {listaProductos.map((producto, index) => (
-                            <div key={producto.id_producto}  className="h-full flex flex-col">
-                                <div className=" rounded-4 hover:shadow-2xl transition-all transform hover:-translate-y-1 flex flex-col h-auto">
-                                    <div className="group relative overflow-hidden flex flex-col items-center p-1.5 md:p-3 flex-grow bg-gradient-to-br from-white to-slate-50 rounded-xl border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300">
-
-                                        {/* Imagen con efecto hover */}
-                                        <div className="relative aspect-square w-full overflow-hidden rounded-lg cursor-pointer" onClick={()=> verProducto(producto.id_producto)}>
-                                            <div className="transition-transform duration-500 group-hover:scale-110">
-                                                <MediaCardImage
-                                                    imagenProducto={`https://imagedelivery.net/aCBUhLfqUcxA2yhIBn1fNQ/${producto.imagenProducto}/card`}
-                                                    tituloProducto={producto.tituloProducto} />
-                                            </div>
-                                            {/* Overlay hover */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                        </div>
-
-                                        {/* Contenido con altura fija para alinear botones */}
-                                        <div className="w-full flex flex-col justify-start gap-1 md:gap-2 mt-1.5 md:mt-3 flex-grow">
-                                            {/* Título con altura mínima fija MÁS GRANDE en móviles */}
-                                            <p className="text-[9px] md:text-xs text-center font-bold text-slate-800 line-clamp-2 min-h-[2.2rem] md:min-h-[2rem] leading-snug">
-                                                {producto.tituloProducto}
-                                            </p>
-
-                                            {/* Precio destacado con badge MÁS PEQUEÑO */}
-                                            <div className="flex justify-center">
-                                                <span className="inline-flex items-center bg-gradient-to-r from-sky-600 to-sky-700 text-white px-1.5 py-0.5 md:px-2.5 md:py-1 rounded-full text-[9px] md:text-xs font-bold shadow-sm">
-                                                    ${Number(producto.valorProducto).toLocaleString('es-CL')}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        {/* Botones siempre al final con mt-auto MÁS PEQUEÑOS */}
-                                        <div className="flex justify-center gap-1 mt-auto w-full pt-1 md:pt-2">
-                                            <button
-                                                className="flex items-center justify-center border-0 p-1 md:p-2 rounded bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white shadow-sm hover:shadow-md transition-all duration-200"
-                                                onClick={()=> agregarAlCarrito(producto)}
-                                            >
-                                                <ShoppingCartIcon className="h-3 w-3 md:h-4 md:w-4" />
-                                            </button>
-                                            <button
-                                                className="border-0 px-2 py-1 rounded bg-gradient-to-r from-sky-600 to-sky-700 hover:from-sky-700 hover:to-sky-800 text-white font-medium shadow-sm hover:shadow-md transition-all duration-200 hidden md:block text-[10px]"
-                                                onClick={()=> comprarAhora(producto)}
-                                            >
-                                                Comprar
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
+                    <section className="grid h-full min-w-0 grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:col-span-4 lg:grid-cols-4 lg:gap-5">
+                        {listaProductos.map((producto) => (
+                            <ProductCard
+                                key={producto.id_producto}
+                                producto={producto}
+                                onView={verProducto}
+                                onAdd={agregarAlCarrito}
+                                onBuy={comprarAhora}
+                            />
                         ))}
-
                     </section>
 
 
