@@ -1,8 +1,9 @@
 "use client"
 
 import * as React from "react"
+import Image from "next/image"
 import Link from "next/link"
-import { ShoppingCart, Phone, Menu, X } from "lucide-react"
+import { ShoppingCart, Phone, Menu, X, MessageCircle } from "lucide-react"
 import {
     NavigationMenu,
     NavigationMenuContent,
@@ -13,6 +14,7 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import {useCarritoGlobal} from "@/ContextosGlobales/CarritoContext";
+import { cn } from "@/lib/utils";
 
 export function ShadcnNavBar() {
 
@@ -26,8 +28,8 @@ export function ShadcnNavBar() {
     }, [carrito]);
 
     return (
-        <div className="w-full bg-gradient-to-b from-gray-950 to-gray-900 border-b border-gray-800 shadow-xl">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 lg:py-4">
+        <div className="w-full border-b border-white/5 bg-[#020710]/96 shadow-[0_12px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl">
+            <div className="mx-auto max-w-[1536px] px-4 py-3 sm:px-6 lg:px-[3.4%]">
 
                 {/* Header para móvil: Hamburguesa y Carrito */}
                 <div className="flex lg:hidden items-center justify-between">
@@ -45,6 +47,8 @@ export function ShadcnNavBar() {
                         )}
                     </button>
 
+                    <BrandMark />
+
                     {/* Botón Carrito */}
                     <Link
                         href="/carrito"
@@ -58,15 +62,19 @@ export function ShadcnNavBar() {
                 </div>
 
                 {/* Navigation Menu Desktop (oculto en móvil) */}
-                <div className="hidden lg:flex items-center justify-between">
-                    <NavigationMenu className="relative z-50 flex-1">
+                <div className="hidden min-h-14 items-center lg:flex">
+                    <BrandMark className="mr-24 shrink-0" />
+
+                    <NavigationMenu className="relative z-50 flex-1 justify-start">
                         <NavigationMenuList className="flex-wrap gap-2">
 
 
                 {/* ========== MENÚ INICIO ========== */}
                 <NavigationMenuItem>
                     <NavigationMenuTrigger className="text-gray-200 hover:text-white hover:bg-gray-800/90 text-base font-semibold px-4 py-2">
-                        Inicio
+                        <span className="relative after:absolute after:-bottom-3 after:left-0 after:h-0.5 after:w-full after:bg-blue-600">
+                            Inicio
+                        </span>
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
                         <ul className="grid gap-3 p-4 md:w-[450px] lg:w-[550px] lg:grid-cols-[.75fr_1fr]">
@@ -139,17 +147,13 @@ export function ShadcnNavBar() {
         </NavigationMenu>
 
                     {/* Número de teléfono y Carrito (Desktop) */}
-                    <div className="flex items-center gap-4 ml-6">
+                    <div className="ml-auto flex items-center gap-6">
                         {/* Número de teléfono */}
-                        <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600/20 to-indigo-600/20 border border-blue-500/30 backdrop-blur-sm">
-                            <img
-                                src="https://www.svgrepo.com/show/176768/whatsapp-social-media.svg"
-                                className="w-6 h-6"
-                                alt="WhatsApp"
-                            />
+                        <div className="flex items-center gap-2">
+                            <MessageCircle className="size-6 text-emerald-400" aria-hidden="true" />
                             <a
                                 href="tel:+56943805047"
-                                className="text-base font-semibold text-white hover:text-blue-400 transition-colors duration-200"
+                                className="text-base font-semibold text-white transition-colors duration-200 hover:text-blue-300"
                             >
                                 +56 9 9504 3704
                             </a>
@@ -285,6 +289,28 @@ export function ShadcnNavBar() {
 
             </div>
         </div>
+    )
+}
+
+function BrandMark({ className = "" }) {
+    return (
+        <Link
+            href="/"
+            className={cn(
+                "relative block h-12 w-32 shrink-0 overflow-hidden no-underline sm:h-14 sm:w-36",
+                className
+            )}
+            aria-label="Macar Repuestos, ir al inicio"
+        >
+            <Image
+                src="/logoblanco.png"
+                alt="Macar Repuestos"
+                fill
+                priority
+                sizes="(max-width: 640px) 128px, 144px"
+                className="scale-[1.18] object-cover object-center mix-blend-screen"
+            />
+        </Link>
     )
 }
 
